@@ -1,11 +1,10 @@
 
 import React from "react";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button";
+import { Search, X } from "lucide-react";
 import { User } from "@/types/auth";
-import { Search } from "lucide-react";
 
 interface RecipientSearchProps {
   recipient: string;
@@ -13,7 +12,7 @@ interface RecipientSearchProps {
   isLoading: boolean;
   foundUser: User | null;
   searchPerformed: boolean;
-  handleFindUser: () => Promise<void>;
+  handleFindUser: () => void;
 }
 
 const RecipientSearch = ({
@@ -22,11 +21,11 @@ const RecipientSearch = ({
   isLoading,
   foundUser,
   searchPerformed,
-  handleFindUser,
+  handleFindUser
 }: RecipientSearchProps) => {
   return (
     <div className="space-y-2">
-      <Label htmlFor="recipient">接收方用户名</Label>
+      <Label htmlFor="recipient" className="font-medium">接收方用户名</Label>
       <div className="flex gap-2">
         <Input
           id="recipient"
@@ -36,19 +35,21 @@ const RecipientSearch = ({
           className="flex-1"
           disabled={isLoading || !!foundUser}
         />
-        {!foundUser && (
+        {!foundUser ? (
           <Button
             onClick={handleFindUser}
             disabled={isLoading || !recipient.trim()}
             variant="outline"
+            className="flex-shrink-0 transition-all duration-300 hover:bg-primary/10"
           >
-            <Search className="h-4 w-4" />
+            {isLoading ? "查找中..." : <Search className="h-4 w-4" />}
           </Button>
-        )}
+        ) : null}
       </div>
-      
+
       {searchPerformed && !foundUser && !isLoading && (
-        <div className="text-destructive text-sm">
+        <div className="text-destructive text-sm flex items-center gap-1.5 bg-destructive/10 p-2 rounded-md border border-destructive/20">
+          <X className="h-4 w-4" />
           未找到该用户，请检查用户名是否正确
         </div>
       )}

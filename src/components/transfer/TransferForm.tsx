@@ -2,12 +2,12 @@
 import React, { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { toast } from "@/components/ui/use-toast";
 import { User } from "@/types/auth";
 import { SendHorizontal } from "lucide-react";
 
-// Import our new components
+// Import our components
 import RecipientSearch from "./recipient/RecipientSearch";
 import FoundUserCard from "./recipient/FoundUserCard";
 import AmountInput from "./amount/AmountInput";
@@ -45,6 +45,11 @@ const TransferForm = () => {
           variant: "destructive",
           title: "未找到用户",
           description: `用户名"${recipient}"不存在`,
+        });
+      } else {
+        toast({
+          title: "用户查找成功",
+          description: `找到用户: ${result.username}`,
         });
       }
     } catch (error) {
@@ -112,7 +117,7 @@ const TransferForm = () => {
   const showFeeWarning = !user?.energy || user.energy < 1;
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-md mx-auto shadow-md hover:shadow-lg transition-all duration-300">
       <CardHeader>
         <TransferHeader showFeeWarning={showFeeWarning} />
       </CardHeader>
@@ -138,14 +143,16 @@ const TransferForm = () => {
           />
         )}
 
-        <BalanceDisplay user={user} showFeeWarning={showFeeWarning} />
+        <div className="py-2">
+          <BalanceDisplay user={user} showFeeWarning={showFeeWarning} />
+        </div>
       </CardContent>
       
-      <CardFooter>
+      <CardFooter className="flex justify-center">
         <Button
           onClick={handleTransfer}
           disabled={isLoading || !foundUser || !amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0}
-          className="w-full"
+          className="w-full transition-all duration-300 hover:shadow-md"
         >
           <SendHorizontal className="h-4 w-4 mr-2" />
           {isLoading ? "处理中..." : "确认转账"}

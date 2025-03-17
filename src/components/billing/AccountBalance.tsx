@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { PlusCircle, ArrowUpRight } from 'lucide-react';
+import { PlusCircle, ArrowUpRight, SendHorizontal } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface AccountBalanceProps {
@@ -24,16 +24,16 @@ const AccountBalance = ({ currentBalance }: AccountBalanceProps) => {
           <p className="text-sm text-muted-foreground ml-2">CNY</p>
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
-          <Button className="flex-1 button-animation">
+          <Button className="flex-1 transition-all duration-300 hover:shadow-md">
             <PlusCircle className="h-4 w-4 mr-2" />
             充值
           </Button>
           <Button 
             variant="outline" 
-            className="flex-1 button-animation"
-            onClick={() => navigate('/earnings')}
+            className="flex-1 transition-all duration-300 hover:shadow-md hover:bg-primary/10"
+            onClick={() => navigate('/transfer')}
           >
-            <ArrowUpRight className="h-4 w-4 mr-2" />
+            <SendHorizontal className="h-4 w-4 mr-2" />
             转账
           </Button>
         </div>
