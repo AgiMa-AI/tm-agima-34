@@ -30,6 +30,7 @@ import CaseStudy from "./pages/CaseStudy";
 import MobileComputing from "./pages/MobileComputing";
 import Earnings from "./pages/Earnings";
 import Invitation from "./pages/Invitation";
+import Wallet from "./pages/Wallet"; // Add import for Wallet page
 
 // Admin pages
 import AdminDashboard from "./pages/admin/Dashboard";
@@ -67,6 +68,7 @@ const App = () => (
             <Route path="/settings" element={<Settings />} />
             <Route path="/mobile-app" element={<MobileApp />} />
             <Route path="/charts" element={<Charts />} />
+            <Route path="/wallet" element={<Wallet />} /> {/* Add Wallet route */}
             
             {/* 服务条款和隐私政策路由 */}
             <Route path="/terms" element={<Terms />} />

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { PlusCircle, ArrowUpRight, SendHorizontal } from 'lucide-react';
+import { PlusCircle, ArrowUpRight, SendHorizontal, Wallet } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface AccountBalanceProps {
@@ -35,6 +35,14 @@ const AccountBalance = ({ currentBalance }: AccountBalanceProps) => {
           >
             <SendHorizontal className="h-4 w-4 mr-2" />
             转账
+          </Button>
+          <Button 
+            variant="outline" 
+            className="flex-1 transition-all duration-300 hover:shadow-md hover:bg-primary/10"
+            onClick={() => navigate('/wallet')}
+          >
+            <Wallet className="h-4 w-4 mr-2" />
+            钱包
           </Button>
         </div>
       </CardContent>
