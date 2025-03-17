@@ -85,6 +85,18 @@ const Sidebar = ({ collapsed, className }: SidebarProps) => {
 
   const userCenterItems = [
     { 
+      href: "/users", 
+      icon: <Users className="h-4 w-4" />,
+      title: "用户管理",
+      isActive: isActive('/users')
+    },
+    { 
+      href: "/tasks", 
+      icon: <Clock className="h-4 w-4" />,
+      title: "任务调度",
+      isActive: isActive('/tasks')
+    },
+    { 
       href: "/invitation", 
       icon: <Share2 className="h-4 w-4" />,
       title: "邀请管理",
@@ -107,21 +119,6 @@ const Sidebar = ({ collapsed, className }: SidebarProps) => {
       icon: <Settings className="h-4 w-4" />,
       title: "账户设置",
       isActive: isActive('/settings')
-    }
-  ];
-
-  const adminItems = [
-    { 
-      href: "/admin/users", 
-      icon: <Users className="h-4 w-4" />,
-      title: "用户管理",
-      isActive: isActive('/admin/users')
-    },
-    { 
-      href: "/admin/tasks", 
-      icon: <Clock className="h-4 w-4" />,
-      title: "任务调度",
-      isActive: isActive('/admin/tasks')
     }
   ];
 
@@ -159,15 +156,6 @@ const Sidebar = ({ collapsed, className }: SidebarProps) => {
             <NavSection 
               title="用户中心" 
               items={userCenterItems} 
-              collapsed={collapsed} 
-              className="pt-2"
-            />
-            
-            {!collapsed && <Separator className="my-4" />}
-            
-            <NavSection 
-              title="后台管理" 
-              items={adminItems} 
               collapsed={collapsed} 
               className="pt-2"
             />

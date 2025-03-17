@@ -32,6 +32,7 @@ import Earnings from "./pages/Earnings";
 import Invitation from "./pages/Invitation";
 import Wallet from "./pages/Wallet";
 
+// Import the admin pages as regular user pages
 import AdminUsers from "./pages/admin/Users";
 import AdminTasks from "./pages/admin/Tasks";
 import TaskDetail from "./pages/admin/TaskDetail";
@@ -81,11 +82,17 @@ const App = () => (
             <Route path="/earnings" element={<Earnings />} />
             <Route path="/invitation" element={<Invitation />} />
             
-            <Route path="/admin/users" element={<AdminUsers />} />
-            
-            <Route path="/admin/tasks" element={<AdminTasks />}>
+            {/* Move admin routes to user facing routes */}
+            <Route path="/users" element={<AdminUsers />} />
+            <Route path="/tasks" element={<AdminTasks />}>
               <Route path=":id" element={<TaskDetail />} />
             </Route>
+            
+            {/* Redirect old admin routes to new user routes */}
+            <Route path="/admin/users" element={<Navigate to="/users" replace />} />
+            <Route path="/admin/tasks" element={<Navigate to="/tasks" replace />} />
+            <Route path="/admin/tasks/:id" element={<Navigate to="/tasks/:id" replace />} />
+            <Route path="/admin/*" element={<Navigate to="/" replace />} />
             
             <Route path="*" element={<NotFound />} />
           </Routes>

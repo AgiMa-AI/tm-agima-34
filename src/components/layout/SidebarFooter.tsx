@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Shield } from 'lucide-react';
+import { Users } from 'lucide-react';
 
 interface SidebarFooterProps {
   collapsed?: boolean;
@@ -17,9 +17,9 @@ const SidebarFooter = ({ collapsed }: SidebarFooterProps) => {
         className="w-full justify-center bg-primary/5 hover:bg-primary/10 text-primary" 
         asChild
       >
-        <Link to="/admin/users">
-          <Shield className="h-4 w-4 mr-2" />
-          {!collapsed ? "后台管理" : null}
+        <Link to="/users">
+          <Users className="h-4 w-4 mr-2" />
+          {!collapsed ? "用户管理" : null}
         </Link>
       </Button>
     </div>
