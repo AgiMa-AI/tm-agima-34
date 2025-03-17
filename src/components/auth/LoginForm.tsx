@@ -28,8 +28,8 @@ const LoginForm = ({ isLoading, onSubmit }: LoginFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
-      <div className="space-y-1.5 sm:space-y-2">
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="space-y-2">
         <Label htmlFor="username" className="text-sm font-medium">用户名</Label>
         <div className="relative">
           <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -44,7 +44,7 @@ const LoginForm = ({ isLoading, onSubmit }: LoginFormProps) => {
         </div>
       </div>
       
-      <div className="space-y-1.5 sm:space-y-2">
+      <div className="space-y-2">
         <div className="flex items-center justify-between">
           <Label htmlFor="password" className="text-sm font-medium">密码</Label>
           <Link 
@@ -81,7 +81,7 @@ const LoginForm = ({ isLoading, onSubmit }: LoginFormProps) => {
       
       <Button 
         type="submit" 
-        className="w-full h-11 sm:h-12 mt-2 rounded-xl shadow-md hover:shadow-lg transition-all font-medium text-base"
+        className="w-full h-11 sm:h-12 mt-4 rounded-xl shadow-md hover:shadow-lg transition-all font-medium text-base"
         disabled={isLoading}
       >
         {isLoading ? "登录中..." : (
