@@ -6,7 +6,7 @@ import { Separator } from '@/components/ui/separator';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { 
   Home, Server, CreditCard, Clock, Settings, Database, 
-  Smartphone, BarChart, Bot, Cpu, Globe,
+  Smartphone, BarChart, Bot, Cpu, Globe, Users,
   LineChart, PieChart, Share2, Wifi, Zap, Network
 } from 'lucide-react';
 
@@ -110,6 +110,21 @@ const Sidebar = ({ collapsed, className }: SidebarProps) => {
     }
   ];
 
+  const adminItems = [
+    { 
+      href: "/admin/users", 
+      icon: <Users className="h-4 w-4" />,
+      title: "用户管理",
+      isActive: isActive('/admin/users')
+    },
+    { 
+      href: "/admin/tasks", 
+      icon: <Clock className="h-4 w-4" />,
+      title: "任务调度",
+      isActive: isActive('/admin/tasks')
+    }
+  ];
+
   return (
     <aside className={cn(
       'border-r bg-background transition-all duration-300 ease-in-out',
@@ -144,6 +159,15 @@ const Sidebar = ({ collapsed, className }: SidebarProps) => {
             <NavSection 
               title="用户中心" 
               items={userCenterItems} 
+              collapsed={collapsed} 
+              className="pt-2"
+            />
+            
+            {!collapsed && <Separator className="my-4" />}
+            
+            <NavSection 
+              title="后台管理" 
+              items={adminItems} 
               collapsed={collapsed} 
               className="pt-2"
             />

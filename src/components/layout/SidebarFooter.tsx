@@ -1,5 +1,8 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Shield } from 'lucide-react';
 
 interface SidebarFooterProps {
   collapsed?: boolean;
@@ -8,10 +11,17 @@ interface SidebarFooterProps {
 const SidebarFooter = ({ collapsed }: SidebarFooterProps) => {
   return (
     <div className="mt-auto p-4 border-t">
-      {/* Footer content can be added here if needed */}
-      <div className="text-xs text-muted-foreground text-center">
-        {!collapsed ? "算力云平台 © 2023" : null}
-      </div>
+      <Button 
+        variant="outline" 
+        size="sm" 
+        className="w-full justify-center bg-primary/5 hover:bg-primary/10 text-primary" 
+        asChild
+      >
+        <Link to="/admin/users">
+          <Shield className="h-4 w-4 mr-2" />
+          {!collapsed ? "后台管理" : null}
+        </Link>
+      </Button>
     </div>
   );
 };

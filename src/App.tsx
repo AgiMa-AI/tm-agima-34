@@ -81,8 +81,11 @@ const App = () => (
             <Route path="/earnings" element={<Earnings />} />
             <Route path="/invitation" element={<Invitation />} />
             
-            {/* Redirecting admin routes to the homepage */}
-            <Route path="/admin/*" element={<Navigate to="/" replace />} />
+            <Route path="/admin/users" element={<AdminUsers />} />
+            
+            <Route path="/admin/tasks" element={<AdminTasks />}>
+              <Route path=":id" element={<TaskDetail />} />
+            </Route>
             
             <Route path="*" element={<NotFound />} />
           </Routes>
