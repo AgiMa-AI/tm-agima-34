@@ -138,15 +138,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // Transfer functionality
-  const handleTransferFunds = (recipientId: string, amount: number) => {
+  // Transfer functionality - Updated to return a Promise
+  const handleTransferFunds = async (recipientId: string, amount: number) => {
     if (!user) {
       toast({
         variant: "destructive",
         title: "转账失败",
         description: "您需要登录才能进行转账",
       });
-      return { success: false, message: "未登录" };
+      return Promise.resolve({ success: false, message: "未登录" });
     }
 
     try {
@@ -180,7 +180,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         });
       }
       
-      return result;
+      return Promise.resolve({ 
+        success: result.success, 
+        message: result.message 
+      });
     } catch (error) {
       console.error('Transfer error:', error);
       toast({
@@ -188,8 +191,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         title: "转账失败",
         description: "发生错误，请稍后再试",
       });
-      return { success: false, message: "系统错误" };
+      return Promise.resolve({ success: false, message: "系统错误" });
     }
+  };
+
+  // Find user by username - Updated to return a Promise
+  const findUserByUsernameAsync = async (username: string): Promise<User | null> => {
+    return Promise.resolve(findUserByUsername(username));
   };
 
   return (
@@ -203,7 +211,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       updateUser,
       getUserInviteTree,
       transferFunds: handleTransferFunds,
-      findUserByUsername
+      findUserByUsername: findUserByUsernameAsync
     }}>
       {children}
     </AuthContext.Provider>
@@ -220,3 +228,4 @@ export const withAuth = (Component: React.ComponentType) => {
     );
   };
 };
+
