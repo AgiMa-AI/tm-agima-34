@@ -8,11 +8,16 @@ import HelpSection from './HelpSection';
 
 const SidebarTools = () => {
   return (
-    <div className="space-y-6">
-      <PaymentMethods />
-      <AutoRecharge />
-      <PromoCode />
-      <HelpSection />
+    <div className="space-y-5">
+      <div className="bg-muted/30 p-3 rounded-xl border border-border shadow-sm">
+        <h3 className="text-sm font-medium text-muted-foreground mb-2">账户工具</h3>
+        <div className="space-y-4">
+          <PaymentMethods />
+          <AutoRecharge />
+          <PromoCode />
+          <HelpSection />
+        </div>
+      </div>
     </div>
   );
 };

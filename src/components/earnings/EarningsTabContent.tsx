@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
 import TaskRecordsTable from './TaskRecordsTable';
-import TransferForm from '@/components/transfer/TransferForm';
+import UserTransferForm from '@/components/transfer/UserTransferForm';
 import EarningsTabs from './tabs/EarningsTabs';
 
 const EarningsTabContent = () => {
@@ -12,12 +12,12 @@ const EarningsTabContent = () => {
     <Tabs defaultValue="tasks" value={activeTab}>
       <EarningsTabs activeTab={activeTab} onTabChange={setActiveTab} />
       
-      <TabsContent value="tasks" className="pt-2 sm:pt-4">
+      <TabsContent value="tasks" className="pt-3 sm:pt-4">
         <TaskRecordsTable />
       </TabsContent>
       
-      <TabsContent value="transfer" className="pt-2 sm:pt-4">
-        <TransferForm />
+      <TabsContent value="transfer" className="pt-3 sm:pt-4">
+        <UserTransferForm />
       </TabsContent>
     </Tabs>
   );

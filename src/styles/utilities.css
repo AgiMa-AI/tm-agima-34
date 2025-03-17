@@ -55,4 +55,22 @@
   .tiffany-glow {
     @apply hover:shadow-[0_0_15px_rgba(0,188,190,0.5)] transition-shadow duration-300;
   }
+  
+  /* 用户界面优化 */
+  .card-interactive {
+    @apply transition-all duration-300 hover:shadow-md hover:border-primary/50 cursor-pointer;
+  }
+  
+  .input-focus {
+    @apply focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all duration-200;
+  }
+  
+  .button-animation {
+    @apply hover:scale-105 active:scale-95 transition-transform duration-200;
+  }
+  
+  .panel-shadow {
+    @apply shadow-[0_2px_10px_rgba(0,0,0,0.08)];
+  }
 }
+

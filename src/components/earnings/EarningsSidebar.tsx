@@ -6,7 +6,8 @@ import BillDownload from './bills/BillDownload';
 
 const EarningsSidebar = () => {
   return (
-    <div className="space-y-3 sm:space-y-4 md:space-y-6">
+    <div className="bg-muted/30 p-3 rounded-xl border border-border shadow-sm space-y-4 sm:space-y-5">
+      <h3 className="text-sm font-medium text-muted-foreground">收益视图</h3>
       <DeviceEarningsDistribution />
       <WithdrawalRecords />
       <BillDownload />

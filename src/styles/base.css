@@ -16,8 +16,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 210 40% 15%;
 
-    /* 蒂芙尼蓝色调 */
-    --primary: 173 80% 40%;
+    /* 蒂芙尼蓝色调 - 微调更加柔和 */
+    --primary: 173 75% 38%;
     --primary-foreground: 180 30% 98%;
 
     --secondary: 173 70% 94%;
@@ -104,4 +104,18 @@
   pre, code {
     @apply font-mono;
   }
+
+  /* 添加UI优化样式 */
+  input, textarea, select {
+    @apply transition-all duration-200;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-md hover:border-primary/30;
+  }
+  
+  .btn-hover {
+    @apply transition-all duration-200 hover:shadow-sm hover:translate-y-[-1px];
+  }
 }
+
