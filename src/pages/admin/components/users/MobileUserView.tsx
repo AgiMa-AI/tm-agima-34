@@ -11,6 +11,10 @@ interface MobileUserViewProps {
 }
 
 const MobileUserView = ({ user }: MobileUserViewProps) => {
+  // 模拟数据，在实际应用中应该从用户数据中获取
+  const rentedDevices = user.role === 'renter' ? Math.floor(Math.random() * 10) : 0;
+  const todayEarnings = user.role === 'provider' ? (Math.random() * 1000).toFixed(2) : 0;
+
   return (
     <div className="sm:hidden space-y-2">
       <div className="flex items-center justify-between">
@@ -33,10 +37,14 @@ const MobileUserView = ({ user }: MobileUserViewProps) => {
       </div>
       <div className="grid grid-cols-2 text-sm">
         <div>
-          <span className="text-muted-foreground">注册日期:</span> {user.joinDate}
+          <span className="text-muted-foreground">计算单位:</span> <span className="font-medium">{user.computeUnits}</span>
         </div>
         <div>
-          <span className="text-muted-foreground">计算单位:</span> <span className="font-medium">{user.computeUnits}</span>
+          {user.role === 'renter' 
+            ? <><span className="text-muted-foreground">租赁数量:</span> <span className="font-medium">{rentedDevices}台</span></>
+            : user.role === 'provider' 
+              ? <><span className="text-muted-foreground">今日收益:</span> <span className="font-medium">¥{todayEarnings}</span></>
+              : '-'}
         </div>
       </div>
     </div>
