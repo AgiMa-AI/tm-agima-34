@@ -29,7 +29,7 @@ const MobileUserView = ({ user }: MobileUserViewProps) => {
             <div className="text-xs text-muted-foreground">{user.email}</div>
           </div>
         </div>
-        <UserActions />
+        <UserActions userId={user.id} />
       </div>
       <div className="flex flex-wrap gap-2">
         <UserRoleBadge role={user.role} />
