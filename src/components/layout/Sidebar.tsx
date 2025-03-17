@@ -1,49 +1,129 @@
+
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { 
   Home, Server, CreditCard, Clock, Settings, Database, 
   Smartphone, BarChart, Bot, Cpu, Globe, Users,
-  Puzzle, Shield, LineChart, PieChart, Share2, Wifi, Zap,
-  Network
+  LineChart, PieChart, Share2, Wifi, Zap, Network
 } from 'lucide-react';
+
+import NavSection from './NavSection';
+import SidebarFooter from './SidebarFooter';
 
 interface SidebarProps {
   collapsed?: boolean;
   className?: string;
 }
 
-interface NavItemProps {
-  icon: React.ReactNode;
-  title: string;
-  href: string;
-  isActive?: boolean;
-}
-
-const NavItem = ({ icon, title, href, isActive }: NavItemProps) => {
-  return (
-    <Link to={href}>
-      <Button
-        variant={isActive ? 'secondary' : 'ghost'}
-        size="sm"
-        className={cn(
-          'w-full justify-start gap-2 mb-1',
-          isActive ? 'bg-secondary font-medium' : 'font-normal'
-        )}
-      >
-        {icon}
-        <span>{title}</span>
-      </Button>
-    </Link>
-  );
-};
-
 const Sidebar = ({ collapsed, className }: SidebarProps) => {
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
+
+  // Define sections of navigation
+  const overviewItems = [
+    { 
+      href: "/", 
+      icon: <Home className="h-4 w-4" />,
+      title: "控制面板",
+      isActive: isActive('/')
+    },
+    { 
+      href: "/instances", 
+      icon: <Server className="h-4 w-4" />,
+      title: "主机实例",
+      isActive: isActive('/instances')
+    },
+    { 
+      href: "/agi-models", 
+      icon: <Bot className="h-4 w-4" />,
+      title: "AGI 模型",
+      isActive: isActive('/agi-models') || location.pathname.startsWith('/agi/')
+    },
+    { 
+      href: "/charts", 
+      icon: <BarChart className="h-4 w-4" />,
+      title: "市场数据",
+      isActive: isActive('/charts')
+    }
+  ];
+
+  const computingItems = [
+    { 
+      href: "/agi-hosting", 
+      icon: <Cpu className="h-4 w-4" />,
+      title: "算力出租",
+      isActive: isActive('/agi-hosting')
+    },
+    { 
+      href: "/agi-leasing", 
+      icon: <LineChart className="h-4 w-4" />,
+      title: "按天租赁",
+      isActive: isActive('/agi-leasing')
+    },
+    { 
+      href: "/service-distribution", 
+      icon: <Network className="h-4 w-4" />,
+      title: "服务分布",
+      isActive: isActive('/service-distribution')
+    },
+    { 
+      href: "/mobile-computing", 
+      icon: <Smartphone className="h-4 w-4" />,
+      title: "移动算力",
+      isActive: isActive('/mobile-computing')
+    },
+    { 
+      href: "/earnings", 
+      icon: <PieChart className="h-4 w-4" />,
+      title: "收益明细",
+      isActive: isActive('/earnings')
+    }
+  ];
+
+  const userCenterItems = [
+    { 
+      href: "/invitation", 
+      icon: <Share2 className="h-4 w-4" />,
+      title: "邀请管理",
+      isActive: isActive('/invitation')
+    },
+    { 
+      href: "/storage", 
+      icon: <Database className="h-4 w-4" />,
+      title: "存储管理",
+      isActive: isActive('/storage')
+    },
+    { 
+      href: "/mobile-app", 
+      icon: <Zap className="h-4 w-4" />,
+      title: "移动应用",
+      isActive: isActive('/mobile-app')
+    },
+    { 
+      href: "/settings", 
+      icon: <Settings className="h-4 w-4" />,
+      title: "账户设置",
+      isActive: isActive('/settings')
+    }
+  ];
+
+  const adminItems = [
+    { 
+      href: "/admin/users", 
+      icon: <Users className="h-4 w-4" />,
+      title: "用户管理",
+      isActive: isActive('/admin/users')
+    },
+    { 
+      href: "/admin/tasks", 
+      icon: <Clock className="h-4 w-4" />,
+      title: "任务调度",
+      isActive: isActive('/admin/tasks')
+    }
+  ];
 
   return (
     <aside className={cn(
@@ -61,153 +141,39 @@ const Sidebar = ({ collapsed, className }: SidebarProps) => {
         </div>
         <ScrollArea className="flex-1 py-4">
           <nav className="grid gap-2 px-2">
+            <NavSection 
+              title="数据概览" 
+              items={overviewItems} 
+              collapsed={collapsed} 
+            />
             
-            <div className="grid gap-1 px-2">
-              <h3 className={cn(
-                "mb-1 text-xs font-medium text-muted-foreground",
-                collapsed && "sr-only"
-              )}>
-                数据概览
-              </h3>
-              <NavItem 
-                href="/" 
-                icon={<Home className="h-4 w-4" />}
-                title="控制面板"
-                isActive={isActive('/')}
-              />
-              <NavItem 
-                href="/instances" 
-                icon={<Server className="h-4 w-4" />}
-                title="主机实例"
-                isActive={isActive('/instances')}
-              />
-              <NavItem 
-                href="/agi-models" 
-                icon={<Bot className="h-4 w-4" />}
-                title="AGI 模型"
-                isActive={isActive('/agi-models') || location.pathname.startsWith('/agi/')}
-              />
-              <NavItem 
-                href="/charts" 
-                icon={<BarChart className="h-4 w-4" />}
-                title="市场数据"
-                isActive={isActive('/charts')}
-              />
-            </div>
-            
-            
-            
-            <div className="grid gap-1 px-2 pt-4">
-              <h3 className={cn(
-                "mb-1 text-xs font-medium text-muted-foreground",
-                collapsed && "sr-only"
-              )}>
-                算力业务
-              </h3>
-              <NavItem 
-                href="/agi-hosting" 
-                icon={<Cpu className="h-4 w-4" />}
-                title="算力出租"
-                isActive={isActive('/agi-hosting')}
-              />
-              <NavItem 
-                href="/agi-leasing" 
-                icon={<LineChart className="h-4 w-4" />}
-                title="按天租赁"
-                isActive={isActive('/agi-leasing')}
-              />
-              <NavItem 
-                href="/service-distribution" 
-                icon={<Network className="h-4 w-4" />}
-                title="服务分布"
-                isActive={isActive('/service-distribution')}
-              />
-              <NavItem 
-                href="/mobile-computing" 
-                icon={<Smartphone className="h-4 w-4" />}
-                title="移动算力"
-                isActive={isActive('/mobile-computing')}
-              />
-              <NavItem 
-                href="/earnings" 
-                icon={<PieChart className="h-4 w-4" />}
-                title="收益明细"
-                isActive={isActive('/earnings')}
-              />
-            </div>
+            <NavSection 
+              title="算力业务" 
+              items={computingItems} 
+              collapsed={collapsed} 
+              className="pt-4"
+            />
             
             {!collapsed && <Separator className="my-4" />}
             
-            <div className="grid gap-1 px-2 pt-2">
-              <h3 className={cn(
-                "mb-1 text-xs font-medium text-muted-foreground",
-                collapsed && "sr-only"
-              )}>
-                用户中心
-              </h3>
-              <NavItem 
-                href="/invitation" 
-                icon={<Share2 className="h-4 w-4" />}
-                title="邀请管理"
-                isActive={isActive('/invitation')}
-              />
-              <NavItem 
-                href="/storage" 
-                icon={<Database className="h-4 w-4" />}
-                title="存储管理"
-                isActive={isActive('/storage')}
-              />
-              <NavItem 
-                href="/mobile-app" 
-                icon={<Zap className="h-4 w-4" />}
-                title="移动应用"
-                isActive={isActive('/mobile-app')}
-              />
-              <NavItem 
-                href="/settings" 
-                icon={<Settings className="h-4 w-4" />}
-                title="账户设置"
-                isActive={isActive('/settings')}
-              />
-            </div>
+            <NavSection 
+              title="用户中心" 
+              items={userCenterItems} 
+              collapsed={collapsed} 
+              className="pt-2"
+            />
             
             {!collapsed && <Separator className="my-4" />}
             
-            <div className="grid gap-1 px-2 pt-2">
-              <h3 className={cn(
-                "mb-1 text-xs font-medium text-muted-foreground bg-primary/5 px-2 py-1 rounded-sm",
-                collapsed && "sr-only"
-              )}>
-                后台管理
-              </h3>
-              <NavItem 
-                href="/admin/users" 
-                icon={<Users className="h-4 w-4" />}
-                title="用户管理"
-                isActive={isActive('/admin/users')}
-              />
-              <NavItem 
-                href="/admin/tasks" 
-                icon={<Clock className="h-4 w-4" />}
-                title="任务调度"
-                isActive={isActive('/admin/tasks')}
-              />
-            </div>
+            <NavSection 
+              title="后台管理" 
+              items={adminItems} 
+              collapsed={collapsed} 
+              className="pt-2"
+            />
           </nav>
         </ScrollArea>
-        <div className="mt-auto p-4 border-t">
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="w-full justify-center bg-primary/5 hover:bg-primary/10 text-primary" 
-            asChild
-          >
-            <Link to="/admin/users">
-              <Shield className="h-4 w-4 mr-2" />
-              {!collapsed ? "后台管理" : null}
-            </Link>
-          </Button>
-        </div>
+        <SidebarFooter collapsed={collapsed} />
       </div>
     </aside>
   );
