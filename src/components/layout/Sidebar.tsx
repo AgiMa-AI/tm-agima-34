@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -7,7 +6,7 @@ import { Separator } from '@/components/ui/separator';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { 
   Home, Server, CreditCard, Clock, Settings, Database, 
-  Smartphone, BarChart, Bot, Cpu, Globe, Users, Key, 
+  Smartphone, BarChart, Bot, Cpu, Globe, Users,
   Puzzle, Shield, LineChart, PieChart, Share2, Wifi, Zap,
   Network
 } from 'lucide-react';
@@ -195,12 +194,6 @@ const Sidebar = ({ collapsed, className }: SidebarProps) => {
                 icon={<Clock className="h-4 w-4" />}
                 title="任务调度"
                 isActive={isActive('/admin/tasks')}
-              />
-              <NavItem 
-                href="/admin/api-keys" 
-                icon={<Key className="h-4 w-4" />}
-                title="API 密钥"
-                isActive={isActive('/admin/api-keys')}
               />
             </div>
           </nav>

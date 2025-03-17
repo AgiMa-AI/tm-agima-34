@@ -30,14 +30,13 @@ import CaseStudy from "./pages/CaseStudy";
 import MobileComputing from "./pages/MobileComputing";
 import Earnings from "./pages/Earnings";
 import Invitation from "./pages/Invitation";
-import Wallet from "./pages/Wallet"; // Add import for Wallet page
+import Wallet from "./pages/Wallet";
 
 // Admin pages
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminUsers from "./pages/admin/Users";
 import AdminTasks from "./pages/admin/Tasks";
 import TaskDetail from "./pages/admin/TaskDetail";
-import AdminApiKeys from "./pages/admin/ApiKeys";
 
 // Create a new QueryClient instance with extended caching for our chart data
 const queryClient = new QueryClient({
@@ -68,7 +67,7 @@ const App = () => (
             <Route path="/settings" element={<Settings />} />
             <Route path="/mobile-app" element={<MobileApp />} />
             <Route path="/charts" element={<Charts />} />
-            <Route path="/wallet" element={<Wallet />} /> {/* Add Wallet route */}
+            <Route path="/wallet" element={<Wallet />} />
             
             {/* 服务条款和隐私政策路由 */}
             <Route path="/terms" element={<Terms />} />
@@ -96,8 +95,6 @@ const App = () => (
             <Route path="/admin/tasks" element={<AdminTasks />}>
               <Route path=":id" element={<TaskDetail />} />
             </Route>
-            
-            <Route path="/admin/api-keys" element={<AdminApiKeys />} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
