@@ -61,6 +61,7 @@ const Sidebar = ({ collapsed, className }: SidebarProps) => {
         </div>
         <ScrollArea className="flex-1 py-4">
           <nav className="grid gap-2 px-2">
+            
             <div className="grid gap-1 px-2">
               <h3 className={cn(
                 "mb-1 text-xs font-medium text-muted-foreground",
@@ -93,6 +94,8 @@ const Sidebar = ({ collapsed, className }: SidebarProps) => {
                 isActive={isActive('/charts')}
               />
             </div>
+            
+            
             
             <div className="grid gap-1 px-2 pt-4">
               <h3 className={cn(
@@ -178,12 +181,6 @@ const Sidebar = ({ collapsed, className }: SidebarProps) => {
                 后台管理
               </h3>
               <NavItem 
-                href="/admin/dashboard" 
-                icon={<Shield className="h-4 w-4" />}
-                title="管理控制台"
-                isActive={isActive('/admin/dashboard')}
-              />
-              <NavItem 
                 href="/admin/users" 
                 icon={<Users className="h-4 w-4" />}
                 title="用户管理"
@@ -205,7 +202,7 @@ const Sidebar = ({ collapsed, className }: SidebarProps) => {
             className="w-full justify-center bg-primary/5 hover:bg-primary/10 text-primary" 
             asChild
           >
-            <Link to="/admin/dashboard">
+            <Link to="/admin/users">
               <Shield className="h-4 w-4 mr-2" />
               {!collapsed ? "后台管理" : null}
             </Link>

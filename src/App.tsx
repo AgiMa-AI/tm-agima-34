@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -31,11 +32,9 @@ import Earnings from "./pages/Earnings";
 import Invitation from "./pages/Invitation";
 import Wallet from "./pages/Wallet";
 
-import AdminDashboard from "./pages/admin/Dashboard";
 import AdminUsers from "./pages/admin/Users";
 import AdminTasks from "./pages/admin/Tasks";
 import TaskDetail from "./pages/admin/TaskDetail";
-import ApiConfig from "./pages/admin/ApiConfig";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -82,9 +81,7 @@ const App = () => (
             <Route path="/earnings" element={<Earnings />} />
             <Route path="/invitation" element={<Invitation />} />
             
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/users" element={<AdminUsers />} />
-            <Route path="/admin/api-config" element={<ApiConfig />} />
             
             <Route path="/admin/tasks" element={<AdminTasks />}>
               <Route path=":id" element={<TaskDetail />} />
