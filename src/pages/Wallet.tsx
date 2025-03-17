@@ -1,4 +1,3 @@
-
 import React from "react";
 import Layout from "@/components/layout/Layout";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -8,6 +7,7 @@ import TransactionList from "@/components/wallet/TransactionList";
 import WalletHeader from "@/components/wallet/WalletHeader";
 import BalanceSummary from "@/components/wallet/BalanceSummary";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import WalletActionButtons from "@/components/wallet/WalletActionButtons";
 
 const Wallet = () => {
   const { user } = useAuth();
@@ -51,7 +51,6 @@ const Wallet = () => {
                 <h3 className="text-lg font-semibold">快速操作</h3>
               </CardHeader>
               <CardContent className="space-y-4">
-                {/* Could be expanded with more wallet functions in the future */}
                 <WalletActionButtons />
               </CardContent>
             </Card>
