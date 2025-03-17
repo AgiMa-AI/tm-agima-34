@@ -2,7 +2,7 @@
 import { mockUsers } from "@/data/mockUsers";
 import { User, UserWithPassword } from "@/types/auth";
 
-// 生成唯一邀请码
+// Generate unique invite code
 export const generateInviteCode = (): string => {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let code = 'AGI-';
@@ -12,18 +12,18 @@ export const generateInviteCode = (): string => {
   return code;
 };
 
-// 查找用户通过邀请码
+// Find user by invite code
 export const findUserByInviteCode = (inviteCode: string): UserWithPassword | undefined => {
   return mockUsers.find(user => user.inviteCode === inviteCode);
 };
 
-// 获取用户邀请树
+// Get user invite tree
 export const getUserInviteTree = (userId: string): string[] => {
   const foundUser = mockUsers.find(u => u.id === userId);
   return foundUser?.inviteTree || [];
 };
 
-// 创建新用户 (返回不含密码的用户对象)
+// Create new user (returns user object without password)
 export const createUser = (
   username: string,
   email: string,
@@ -32,7 +32,7 @@ export const createUser = (
   inviteCode?: string
 ): { newUser: User; success: boolean; message?: string } => {
   
-  // 检查用户是否已存在
+  // Check if user already exists
   const userExists = mockUsers.some(
     u => u.username === username || u.email === email
   );
@@ -45,15 +45,15 @@ export const createUser = (
     };
   }
   
-  // 检查邀请码是否有效
+  // Check if invite code is valid
   let inviterUser = null;
   let inviteTree: string[] = [];
   
   if (inviteCode) {
-    // 使用根邀请码时的特殊处理
+    // Special handling for root invite code
     if (inviteCode === "agi1a01") { // ROOT_INVITE_CODE
-      // 用户使用根邀请码注册，将其视为平台直接邀请
-      inviteTree = ['3']; // 设置agima为上级
+      // User registers with root invite code, treat as direct platform invitation
+      inviteTree = ['3']; // Set agima as parent
     } else {
       inviterUser = findUserByInviteCode(inviteCode);
       if (!inviterUser) {
@@ -64,28 +64,28 @@ export const createUser = (
         };
       }
       
-      // 复制邀请人的邀请树，并添加新用户
+      // Copy inviter's invite tree and add new user
       inviteTree = [...inviterUser.inviteTree];
     }
   } else {
-    // 没有邀请码时，默认使用根邀请码作为邀请源
-    inviteTree = ['3']; // 默认设置agima为上级
+    // When no invite code, use root invite code as invitation source
+    inviteTree = ['3']; // Default set agima as parent
   }
   
-  // 生成新用户ID
+  // Generate new user ID
   const newUserId = `${mockUsers.length + 1}`;
   
-  // 生成用户的邀请码
+  // Generate user's invite code
   const userInviteCode = generateInviteCode();
   
-  // 如果没有邀请人，创建新的邀请树以自己为根
+  // If no inviter, create new invite tree with self as root
   if (!inviteTree.length) {
     inviteTree = [newUserId];
   } else {
     inviteTree.push(newUserId);
   }
   
-  // 创建新用户对象
+  // Create new user object
   const newUser = {
     id: newUserId,
     username,
@@ -99,7 +99,7 @@ export const createUser = (
     inviteTree
   };
   
-  // 添加用户到模拟数据库
+  // Add user to mock database
   mockUsers.push({...newUser, password});
   
   return { newUser, success: true };

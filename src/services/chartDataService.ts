@@ -1,25 +1,15 @@
 
-import { HostMapData, StatsData, GpuData } from '@/types/chartData';
 import { mockHostMapData, generateMockStatsData, mockGpuData } from '@/data/mockChartData';
-import { toast } from '@/components/ui/use-toast';
-import { toast as sonnerToast } from "sonner";
 
 /**
  * Fetches all chart data
- * Note: Now always returns mock data as per user request
+ * Uses mock data only as all backend logic has been removed
  */
 export const fetchAllChartData = async () => {
-  console.log('Using mock data as requested...');
+  console.log('Using mock data only (no backend calls)');
   
-  // Use mock data directly as requested by user
-  return useMockData();
-};
-
-/**
- * Function to use mock data
- */
-export const useMockData = () => {
-  console.log('Using mock data');
+  // Simulate network delay for better UX
+  await new Promise(resolve => setTimeout(resolve, 500));
   
   return {
     hostMapData: mockHostMapData,

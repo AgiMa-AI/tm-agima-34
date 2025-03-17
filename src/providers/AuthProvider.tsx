@@ -30,10 +30,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = async (username: string, password: string): Promise<boolean> => {
     setIsLoading(true);
     
-    // Simulate API call
+    // Simulate delay for better UX
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
     try {
-      await new Promise(resolve => setTimeout(resolve, 800));
-      
       const foundUser = mockUsers.find(
         u => (u.username === username || u.email === username) && u.password === password
       );
@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       toast({
         variant: "destructive",
         title: "登录失败",
-        description: "服务器错误，请稍后再试",
+        description: "操作错误，请稍后再试",
       });
       return false;
     } finally {
@@ -77,10 +77,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   ): Promise<boolean> => {
     setIsLoading(true);
     
-    // Simulate API call
+    // Simulate delay for better UX
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
       const { newUser, success, message } = createUser(username, email, password, role, inviteCode);
       
       if (!success) {
@@ -113,7 +113,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       toast({
         variant: "destructive",
         title: "注册失败",
-        description: "服务器错误，请稍后再试",
+        description: "操作错误，请稍后再试",
       });
       return false;
     } finally {
@@ -138,8 +138,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // 转账功能
-  const handleTransferFunds = async (recipientId: string, amount: number) => {
+  // Transfer functionality
+  const handleTransferFunds = (recipientId: string, amount: number) => {
     if (!user) {
       toast({
         variant: "destructive",
@@ -150,10 +150,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
 
     try {
-      const result = await transferFunds(user.id, recipientId, amount);
+      const result = transferFunds(user.id, recipientId, amount);
       
       if (result.success) {
-        // 更新当前用户信息（余额和能量）
+        // Update current user info (balance and energy)
         const updatedBalance = (user.balance || 0) - amount;
         const updatedEnergy = result.energyUsed && user.energy 
           ? user.energy - 1 
@@ -164,7 +164,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           energy: updatedEnergy
         });
         
-        // 显示成功提示
+        // Show success toast
         toast({
           title: "转账成功",
           description: result.transferFee 
@@ -172,7 +172,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             : `已转账 ¥${amount}，使用了1点能量值`,
         });
       } else {
-        // 显示错误提示
+        // Show error toast
         toast({
           variant: "destructive",
           title: "转账失败",
