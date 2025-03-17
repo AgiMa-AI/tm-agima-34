@@ -1,9 +1,9 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import Index from "./pages/Index";
 import Instances from "./pages/Instances";
 import Details from "./pages/Details";
@@ -23,7 +23,6 @@ import AGIRental from "./pages/AGIRental";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 
-// New pages for the updated business logic
 import AGILeasing from "./pages/AGILeasing";
 import ServiceDistribution from "./pages/ServiceDistribution";
 import CaseStudy from "./pages/CaseStudy";
@@ -32,13 +31,12 @@ import Earnings from "./pages/Earnings";
 import Invitation from "./pages/Invitation";
 import Wallet from "./pages/Wallet";
 
-// Admin pages
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminUsers from "./pages/admin/Users";
 import AdminTasks from "./pages/admin/Tasks";
 import TaskDetail from "./pages/admin/TaskDetail";
+import ApiConfig from "./pages/admin/ApiConfig";
 
-// Create a new QueryClient instance with extended caching for our chart data
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -69,17 +67,14 @@ const App = () => (
             <Route path="/charts" element={<Charts />} />
             <Route path="/wallet" element={<Wallet />} />
             
-            {/* 服务条款和隐私政策路由 */}
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
             
-            {/* AGI模型相关路由 */}
             <Route path="/agi-models" element={<AGIModels />} />
             <Route path="/agi/:id" element={<AGIDetailView />} />
             <Route path="/agi-hosting" element={<AGIHosting />} />
             <Route path="/agi-rental/:id" element={<AGIRental />} />
             
-            {/* 新增业务路由 */}
             <Route path="/agi-leasing" element={<AGILeasing />} />
             <Route path="/service-distribution" element={<ServiceDistribution />} />
             <Route path="/case-studies/:id" element={<CaseStudy />} />
@@ -87,16 +82,14 @@ const App = () => (
             <Route path="/earnings" element={<Earnings />} />
             <Route path="/invitation" element={<Invitation />} />
             
-            {/* 管理后台路由 */}
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/users" element={<AdminUsers />} />
+            <Route path="/admin/api-config" element={<ApiConfig />} />
             
-            {/* 任务管理路由 - 使用嵌套路由结构 */}
             <Route path="/admin/tasks" element={<AdminTasks />}>
               <Route path=":id" element={<TaskDetail />} />
             </Route>
             
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </TooltipProvider>

@@ -4,13 +4,46 @@ import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { MoreVertical, UserX } from 'lucide-react';
 import { toast } from '@/components/ui/use-toast';
+import apiService from '@/services/apiService';
 
-const UserActions = () => {
-  const handleDisableAccount = () => {
-    toast({
-      title: "账户已停用",
-      description: "该用户账户已被成功停用",
-    });
+interface UserActionsProps {
+  userId: string;
+}
+
+const UserActions = ({ userId }: UserActionsProps) => {
+  const handleDisableAccount = async () => {
+    try {
+      // 获取API配置
+      const configStr = localStorage.getItem('api_config');
+      let useApi = false;
+      
+      if (configStr) {
+        const config = JSON.parse(configStr);
+        useApi = !!config.baseUrl; // 如果有基础URL，则使用API
+      }
+      
+      if (useApi) {
+        // 尝试通过API停用账户
+        await apiService.disableUser(userId);
+        toast({
+          title: "账户已停用",
+          description: "该用户账户已被成功停用",
+        });
+      } else {
+        // 无API配置时，使用模拟操作
+        toast({
+          title: "账户已停用",
+          description: "该用户账户已被成功停用 (模拟操作)",
+        });
+      }
+    } catch (error) {
+      console.error("停用账户失败:", error);
+      toast({
+        variant: "destructive",
+        title: "操作失败",
+        description: "停用账户时发生错误",
+      });
+    }
   };
 
   return (

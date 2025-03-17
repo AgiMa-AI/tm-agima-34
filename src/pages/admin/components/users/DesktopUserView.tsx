@@ -39,7 +39,7 @@ const DesktopUserView = ({ user }: DesktopUserViewProps) => {
       </div>
       <div className="hidden sm:block text-sm">{user.computeUnits}</div>
       <div className="hidden sm:block text-right">
-        <UserActions />
+        <UserActions userId={user.id} />
       </div>
     </>
   );
