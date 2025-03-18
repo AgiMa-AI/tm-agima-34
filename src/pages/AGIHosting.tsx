@@ -9,6 +9,7 @@ import { Separator } from '@/components/ui/separator';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/hooks/useAuth';
+import ComputePowerLeasing from '@/components/hosting/ComputePowerLeasing';
 import { 
   AlertCircle, 
   BarChart3, 
@@ -199,6 +200,8 @@ const AGIHosting = () => {
             </div>
           </CardContent>
         </Card>
+        
+        <ComputePowerLeasing />
         
         <Card>
           <CardHeader>
