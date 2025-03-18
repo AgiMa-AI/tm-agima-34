@@ -5,13 +5,42 @@ import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Shield, Info, Server } from 'lucide-react';
+import { Shield, Info, Server, Clock, AlertCircle } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import { useToast } from '@/hooks/use-toast';
+import { leaseAGIModel } from '@/services/agiModelService';
 
 const ComputePowerLeasing = () => {
   const [leasingOption, setLeasingOption] = useState<string>("yearly");
   const [hardwareType, setHardwareType] = useState<string>("gpu");
   const [hardwareCount, setHardwareCount] = useState<string>("4");
+  const { toast } = useToast();
+  
+  const handleLeaseStart = async () => {
+    try {
+      const response = await leaseAGIModel(`${hardwareType}-${hardwareCount}`, leasingOption === 'yearly' ? 365 : 180);
+      
+      if (response.success) {
+        toast({
+          title: "出租请求已提交",
+          description: `您的${hardwareType.toUpperCase()}算力资源将开始出租。租赁编号: ${response.leaseId}`,
+          variant: "default",
+        });
+      } else {
+        toast({
+          title: "出租请求失败",
+          description: "提交您的出租请求时出现问题，请稍后重试。",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "出租请求失败",
+        description: "提交您的出租请求时出现问题，请稍后重试。",
+        variant: "destructive",
+      });
+    }
+  };
   
   return (
     <Card className="border-0 shadow-md rounded-xl overflow-hidden">
@@ -28,7 +57,13 @@ const ComputePowerLeasing = () => {
       <CardContent className="pt-6 space-y-6">
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label className="text-base font-medium">出租方式</Label>
+            <div className="flex items-center space-x-2 mb-2">
+              <Label className="text-base font-medium">出租方式</Label>
+              <div className="flex items-center text-amber-600 dark:text-amber-500 bg-amber-50 dark:bg-amber-950/20 px-2 py-1 rounded text-sm">
+                <AlertCircle className="h-4 w-4 mr-1" />
+                <span>最低出租要求</span>
+              </div>
+            </div>
             <div className="p-4 border rounded-lg bg-muted/30">
               <RadioGroup 
                 value={leasingOption} 
@@ -39,6 +74,10 @@ const ComputePowerLeasing = () => {
                   <RadioGroupItem value="yearly" id="yearly" className="mt-1" />
                   <div className="space-y-1">
                     <Label htmlFor="yearly" className="font-medium text-base">一年期出租</Label>
+                    <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                      <Clock className="h-4 w-4 mr-1 text-primary/70" />
+                      <p>最少出租期限：12个月</p>
+                    </div>
                     <p className="text-sm text-muted-foreground">
                       将您的算力资源出租一年，获得最高收益回报。期间我们负责维护和管理您的硬件。
                     </p>
@@ -49,6 +88,10 @@ const ComputePowerLeasing = () => {
                   <RadioGroupItem value="deposit" id="deposit" className="mt-1" />
                   <div className="space-y-1">
                     <Label htmlFor="deposit" className="font-medium text-base">六个月押金出租</Label>
+                    <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                      <Clock className="h-4 w-4 mr-1 text-primary/70" />
+                      <p>需支付六个月押金</p>
+                    </div>
                     <div className="flex items-center gap-1 mb-1">
                       <p className="text-sm text-muted-foreground">
                         支付六个月押金，灵活出租您的算力资源。押金可全额退还。
@@ -120,7 +163,7 @@ const ComputePowerLeasing = () => {
               {hardwareType === 'gpu' ? '¥' + (parseInt(hardwareCount) * 2800).toLocaleString() : '¥' + (parseInt(hardwareCount) * 800).toLocaleString()}
             </p>
           </div>
-          <Button size="lg" className="bg-green-600 hover:bg-green-700">
+          <Button size="lg" className="bg-green-600 hover:bg-green-700" onClick={handleLeaseStart}>
             开始出租
           </Button>
         </div>
