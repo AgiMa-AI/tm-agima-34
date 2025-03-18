@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Shield, Info, Server, Clock, AlertCircle } from 'lucide-react';
+import { Shield, Info, Server, Clock, AlertCircle, Lock } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
 import { leaseAGIModel } from '@/services/agiModelService';
@@ -55,6 +55,18 @@ const ComputePowerLeasing = () => {
       </CardHeader>
       
       <CardContent className="pt-6 space-y-6">
+        <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900/50 rounded-lg p-4 mb-4">
+          <div className="flex">
+            <Lock className="h-5 w-5 text-amber-600 dark:text-amber-500 mr-2 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-amber-800 dark:text-amber-300">服务稳定性保障</p>
+              <p className="text-sm text-amber-700 dark:text-amber-400">
+                为确保租用您算力的客户获得稳定、不间断的服务，我们要求所有算力提供者至少承诺一年的出租期或提供六个月的押金作为保障。这能防止客户的服务被无故中断，增强平台可靠性和声誉。
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="space-y-4">
           <div className="space-y-2">
             <div className="flex items-center space-x-2 mb-2">
@@ -79,7 +91,7 @@ const ComputePowerLeasing = () => {
                       <p>最少出租期限：12个月</p>
                     </div>
                     <p className="text-sm text-muted-foreground">
-                      将您的算力资源出租一年，获得最高收益回报。期间我们负责维护和管理您的硬件。
+                      将您的算力资源出租一年，为客户提供稳定的服务保障，同时获得最高收益回报。
                     </p>
                   </div>
                 </div>
@@ -94,7 +106,7 @@ const ComputePowerLeasing = () => {
                     </div>
                     <div className="flex items-center gap-1 mb-1">
                       <p className="text-sm text-muted-foreground">
-                        支付六个月押金，灵活出租您的算力资源。押金可全额退还。
+                        提供六个月押金作为服务稳定性保障，确保租用客户的服务不会被突然中断。押金可全额退还。
                       </p>
                       <Info className="h-4 w-4 text-muted-foreground cursor-help" />
                     </div>
@@ -143,13 +155,13 @@ const ComputePowerLeasing = () => {
             <Shield className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-2 flex-shrink-0 mt-0.5" />
             <div className="space-y-2">
               <p className="text-sm font-medium text-blue-800 dark:text-blue-300">
-                我们的算力出租保障
+                我们的双向保障承诺
               </p>
               <p className="text-sm text-blue-700 dark:text-blue-400">
                 {leasingOption === 'yearly' ? (
-                  "选择一年期出租，您将获得稳定的收益回报，我们承诺最低95%的使用率。如不满意，可在前3个月内申请终止出租并退还剩余租金。"
+                  "选择一年期出租，确保租用您算力的客户获得稳定持续的服务。同时，您将获得稳定的收益回报，我们承诺最低95%的使用率。如不满意，可在前3个月内申请终止出租并退还剩余租金。"
                 ) : (
-                  "选择押金方式出租，您可以随时收回您的硬件资源。押金将在出租结束后的7个工作日内全额退还至您的账户。"
+                  "选择押金方式出租，您的押金将作为服务稳定性保证，确保客户服务不会被无故中断。押金将在出租结束后的7个工作日内全额退还至您的账户。"
                 )}
               </p>
             </div>
