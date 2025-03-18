@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { FileText, Database, Flask, Server, CheckCircle } from 'lucide-react';
+import { FileText, Database, Beaker, Server, CheckCircle } from 'lucide-react';
 
 const ServiceProcessSection = () => {
   return (
@@ -61,7 +61,7 @@ const ServiceProcessSection = () => {
             <div className="lg:text-right lg:pr-8">
               <div className="flex lg:flex-row-reverse items-start">
                 <div className="relative z-10 flex items-center justify-center w-16 h-16 rounded-full bg-background border border-border shadow">
-                  <Flask className="h-7 w-7 text-primary" />
+                  <Beaker className="h-7 w-7 text-primary" />
                 </div>
                 <div className="bg-card rounded-lg p-4 border -mt-2 lg:mr-4 lg:-mt-0 ml-4 lg:ml-0 flex-1">
                   <h3 className="text-lg font-medium">模型开发</h3>

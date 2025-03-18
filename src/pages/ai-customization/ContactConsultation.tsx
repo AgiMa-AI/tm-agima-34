@@ -15,6 +15,7 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle, Phone, Mail, MessageSquare } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
+import { toast as sonnerToast } from 'sonner';
 
 const ContactConsultation = () => {
   const { toast } = useToast();
@@ -48,11 +49,19 @@ const ContactConsultation = () => {
     // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
-      toast({
-        title: "咨询请求已提交",
+      
+      // Use sonner toast for icon support
+      sonnerToast.success("咨询请求已提交", {
         description: "我们的专业顾问将在1个工作日内与您联系",
         icon: <CheckCircle className="h-5 w-5 text-green-500" />
       });
+      
+      // Or use shadcn toast without icon
+      toast({
+        title: "咨询请求已提交",
+        description: "我们的专业顾问将在1个工作日内与您联系",
+      });
+      
       navigate('/ai-customization');
     }, 1500);
   };
