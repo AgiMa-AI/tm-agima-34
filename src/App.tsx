@@ -32,12 +32,16 @@ import Earnings from "./pages/Earnings";
 import Invitation from "./pages/Invitation";
 import Wallet from "./pages/Wallet";
 
-// Import the new AI service pages
+// Import the AI service pages
 import AICustomization from "./pages/AICustomization";
 import AICommercial from "./pages/AICommercial";
 import AISolutions from "./pages/AISolutions";
 import AIPerformance from "./pages/AIPerformance";
 import AIConsulting from "./pages/AIConsulting";
+
+// Import the new AI customization secondary pages
+import EnterpriseAI from "./pages/ai-customization/EnterpriseAI";
+import ContactConsultation from "./pages/ai-customization/ContactConsultation";
 
 // Import the admin pages as regular user pages
 import AdminUsers from "./pages/admin/Users";
@@ -89,14 +93,18 @@ const App = () => (
             <Route path="/earnings" element={<Earnings />} />
             <Route path="/invitation" element={<Invitation />} />
             
-            {/* New AI service routes */}
+            {/* AI service routes */}
             <Route path="/ai-customization" element={<AICustomization />} />
             <Route path="/ai-commercial" element={<AICommercial />} />
             <Route path="/ai-solutions" element={<AISolutions />} />
             <Route path="/ai-performance" element={<AIPerformance />} />
             <Route path="/ai-consulting" element={<AIConsulting />} />
             
-            {/* Move admin routes to user facing routes */}
+            {/* New AI customization secondary pages */}
+            <Route path="/ai-customization/enterprise" element={<EnterpriseAI />} />
+            <Route path="/ai-customization/contact" element={<ContactConsultation />} />
+            
+            {/* Admin routes as user facing routes */}
             <Route path="/users" element={<AdminUsers />} />
             <Route path="/tasks" element={<AdminTasks />}>
               <Route path=":id" element={<TaskDetail />} />

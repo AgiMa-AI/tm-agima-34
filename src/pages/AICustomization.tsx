@@ -1,10 +1,17 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { BrainCircuit, FileType, Gem, Code, Zap, GitFork, Shield } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { 
+  BrainCircuit, FileType, Gem, Code, Zap, GitFork, Shield, ArrowRight 
+} from 'lucide-react';
+import ModelsSection from '@/components/ai-customization/ModelsSection';
+import ServiceProcessSection from '@/components/ai-customization/ServiceProcessSection';
+import CaseStudiesSection from '@/components/ai-customization/CaseStudiesSection';
 
 const AICustomization = () => {
   return (
@@ -13,7 +20,15 @@ const AICustomization = () => {
         <div className="flex flex-col md:flex-row items-start gap-6">
           <div className="w-full">
             <div className="flex flex-col gap-2 mb-6">
-              <h1 className="text-3xl font-bold tracking-tight">专属AI定制服务</h1>
+              <div className="flex items-center justify-between">
+                <h1 className="text-3xl font-bold tracking-tight">专属AI定制服务</h1>
+                <Button variant="outline" asChild>
+                  <Link to="/ai-customization/contact">
+                    获取方案咨询
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
               <p className="text-muted-foreground">根据您的业务需求，定制专属的人工智能解决方案</p>
             </div>
 
@@ -44,6 +59,14 @@ const AICustomization = () => {
                         <Badge variant="outline" className="bg-primary/10">流程优化</Badge>
                         <Badge variant="outline" className="bg-primary/10">自然语言处理</Badge>
                       </div>
+                      <div className="mt-4">
+                        <Button variant="link" size="sm" className="p-0" asChild>
+                          <Link to="/ai-customization/enterprise">
+                            了解更多
+                            <ArrowRight className="ml-1 h-3 w-3" />
+                          </Link>
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
                   
@@ -63,6 +86,14 @@ const AICustomization = () => {
                         <Badge variant="outline" className="bg-primary/10">行业知识库</Badge>
                         <Badge variant="outline" className="bg-primary/10">合规性</Badge>
                         <Badge variant="outline" className="bg-primary/10">专业术语理解</Badge>
+                      </div>
+                      <div className="mt-4">
+                        <Button variant="link" size="sm" className="p-0" asChild>
+                          <Link to="/ai-customization/industry">
+                            了解更多
+                            <ArrowRight className="ml-1 h-3 w-3" />
+                          </Link>
+                        </Button>
                       </div>
                     </CardContent>
                   </Card>
@@ -84,6 +115,14 @@ const AICustomization = () => {
                         <Badge variant="outline" className="bg-primary/10">前沿技术</Badge>
                         <Badge variant="outline" className="bg-primary/10">一对一服务</Badge>
                       </div>
+                      <div className="mt-4">
+                        <Button variant="link" size="sm" className="p-0" asChild>
+                          <Link to="/ai-customization/premium">
+                            了解更多
+                            <ArrowRight className="ml-1 h-3 w-3" />
+                          </Link>
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
                   
@@ -103,6 +142,14 @@ const AICustomization = () => {
                         <Badge variant="outline" className="bg-primary/10">API开发</Badge>
                         <Badge variant="outline" className="bg-primary/10">系统集成</Badge>
                         <Badge variant="outline" className="bg-primary/10">流程自动化</Badge>
+                      </div>
+                      <div className="mt-4">
+                        <Button variant="link" size="sm" className="p-0" asChild>
+                          <Link to="/ai-customization/api">
+                            了解更多
+                            <ArrowRight className="ml-1 h-3 w-3" />
+                          </Link>
+                        </Button>
                       </div>
                     </CardContent>
                   </Card>
@@ -145,24 +192,15 @@ const AICustomization = () => {
               </TabsContent>
               
               <TabsContent value="models">
-                <div className="mt-6">
-                  <h2 className="text-2xl font-bold mb-6">专业定制模型服务</h2>
-                  <p className="text-muted-foreground mb-8">内容正在建设中，敬请期待...</p>
-                </div>
+                <ModelsSection />
               </TabsContent>
               
               <TabsContent value="process">
-                <div className="mt-6">
-                  <h2 className="text-2xl font-bold mb-6">定制服务流程</h2>
-                  <p className="text-muted-foreground mb-8">内容正在建设中，敬请期待...</p>
-                </div>
+                <ServiceProcessSection />
               </TabsContent>
               
               <TabsContent value="cases">
-                <div className="mt-6">
-                  <h2 className="text-2xl font-bold mb-6">成功案例展示</h2>
-                  <p className="text-muted-foreground mb-8">内容正在建设中，敬请期待...</p>
-                </div>
+                <CaseStudiesSection />
               </TabsContent>
             </Tabs>
           </div>
