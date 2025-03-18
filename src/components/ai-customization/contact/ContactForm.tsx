@@ -2,20 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
-} from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { toast as sonnerToast } from 'sonner';
-import { formConfigService, FormConfig, FormFieldOption } from '@/services/formConfigService';
+import { formConfigService, FormConfig } from '@/services/formConfigService';
+import PersonalInfoFields from './form-fields/PersonalInfoFields';
+import ProjectInfoFields from './form-fields/ProjectInfoFields';
 
 const ContactForm = () => {
   const { toast } = useToast();
@@ -85,17 +78,6 @@ const ContactForm = () => {
     }, 1500);
   };
 
-  // Render select options from configuration
-  const renderSelectOptions = (options: FormFieldOption[] | undefined) => {
-    if (!options || options.length === 0) return null;
-    
-    return options.map(option => (
-      <SelectItem key={option.value} value={option.value}>
-        {option.label}
-      </SelectItem>
-    ));
-  };
-
   if (isLoading) {
     return (
       <Card>
@@ -116,150 +98,17 @@ const ContactForm = () => {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <label htmlFor="name" className="text-sm font-medium">
-                姓名 <span className="text-red-500">*</span>
-              </label>
-              <Input 
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="请输入您的姓名"
-                required
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <label htmlFor="company" className="text-sm font-medium">
-                公司名称 <span className="text-red-500">*</span>
-              </label>
-              <Input 
-                id="company"
-                name="company"
-                value={formData.company}
-                onChange={handleChange}
-                placeholder="请输入公司名称"
-                required
-              />
-            </div>
-          </div>
+          <PersonalInfoFields 
+            formData={formData} 
+            handleChange={handleChange} 
+          />
           
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <label htmlFor="position" className="text-sm font-medium">
-                职位
-              </label>
-              <Input 
-                id="position"
-                name="position"
-                value={formData.position}
-                onChange={handleChange}
-                placeholder="请输入您的职位"
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium">
-                电子邮箱 <span className="text-red-500">*</span>
-              </label>
-              <Input 
-                id="email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="请输入您的电子邮箱"
-                required
-              />
-            </div>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <label htmlFor="phone" className="text-sm font-medium">
-                联系电话 <span className="text-red-500">*</span>
-              </label>
-              <Input 
-                id="phone"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                placeholder="请输入您的联系电话"
-                required
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <label htmlFor="industry" className="text-sm font-medium">
-                所属行业
-              </label>
-              <Select 
-                onValueChange={(value) => handleSelectChange('industry', value)}
-                value={formData.industry}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="请选择行业" />
-                </SelectTrigger>
-                <SelectContent>
-                  {formConfig && renderSelectOptions(formConfig.industries)}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <label htmlFor="serviceType" className="text-sm font-medium">
-                需要的服务类型 <span className="text-red-500">*</span>
-              </label>
-              <Select
-                onValueChange={(value) => handleSelectChange('serviceType', value)}
-                value={formData.serviceType}
-                required
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="请选择服务类型" />
-                </SelectTrigger>
-                <SelectContent>
-                  {formConfig && renderSelectOptions(formConfig.serviceTypes)}
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div className="space-y-2">
-              <label htmlFor="budget" className="text-sm font-medium">
-                预算范围
-              </label>
-              <Select
-                onValueChange={(value) => handleSelectChange('budget', value)}
-                value={formData.budget}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="请选择预算范围" />
-                </SelectTrigger>
-                <SelectContent>
-                  {formConfig && renderSelectOptions(formConfig.budgetRanges)}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-          
-          <div className="space-y-2">
-            <label htmlFor="description" className="text-sm font-medium">
-              需求描述 <span className="text-red-500">*</span>
-            </label>
-            <Textarea
-              id="description"
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              placeholder="请详细描述您的AI解决方案需求、目标和期望..."
-              rows={5}
-              required
-            />
-          </div>
+          <ProjectInfoFields 
+            formData={formData}
+            formConfig={formConfig}
+            handleChange={handleChange}
+            handleSelectChange={handleSelectChange}
+          />
           
           <div className="pt-4">
             <Button type="submit" className="w-full" disabled={isSubmitting}>
