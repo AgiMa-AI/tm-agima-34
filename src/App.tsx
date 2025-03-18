@@ -39,7 +39,7 @@ import AISolutions from "./pages/AISolutions";
 import AIPerformance from "./pages/AIPerformance";
 import AIConsulting from "./pages/AIConsulting";
 
-// Import the new AI customization secondary pages
+// Import the AI customization secondary pages
 import EnterpriseAI from "./pages/ai-customization/EnterpriseAI";
 import ContactConsultation from "./pages/ai-customization/ContactConsultation";
 
@@ -47,6 +47,27 @@ import ContactConsultation from "./pages/ai-customization/ContactConsultation";
 import AdminUsers from "./pages/admin/Users";
 import AdminTasks from "./pages/admin/Tasks";
 import TaskDetail from "./pages/admin/TaskDetail";
+
+// AI Commercial secondary pages
+import CommercialEnterprise from "./pages/ai-commercial/EnterpriseAI";
+import CommercialContact from "./pages/ai-commercial/ContactPage";
+
+// AI Solutions secondary pages
+import SolutionsFinance from "./pages/ai-solutions/FinanceSolution";
+import SolutionsMedical from "./pages/ai-solutions/MedicalSolution";
+import SolutionsManufacturing from "./pages/ai-solutions/ManufacturingSolution";
+import SolutionsContact from "./pages/ai-solutions/ContactPage";
+
+// AI Performance secondary pages
+import PerformanceBenchmarks from "./pages/ai-performance/Benchmarks";
+import PerformanceSecurity from "./pages/ai-performance/Security";
+import PerformanceContact from "./pages/ai-performance/ContactPage";
+
+// AI Consulting secondary pages
+import ConsultingStrategy from "./pages/ai-consulting/Strategy";
+import ConsultingImplementation from "./pages/ai-consulting/Implementation";
+import ConsultingTraining from "./pages/ai-consulting/Training";
+import ConsultingContact from "./pages/ai-consulting/ContactPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -100,9 +121,30 @@ const App = () => (
             <Route path="/ai-performance" element={<AIPerformance />} />
             <Route path="/ai-consulting" element={<AIConsulting />} />
             
-            {/* New AI customization secondary pages */}
+            {/* AI Customization secondary pages */}
             <Route path="/ai-customization/enterprise" element={<EnterpriseAI />} />
             <Route path="/ai-customization/contact" element={<ContactConsultation />} />
+            
+            {/* AI Commercial secondary pages */}
+            <Route path="/ai-commercial/enterprise" element={<CommercialEnterprise />} />
+            <Route path="/ai-commercial/contact" element={<CommercialContact />} />
+            
+            {/* AI Solutions secondary pages */}
+            <Route path="/ai-solutions/finance" element={<SolutionsFinance />} />
+            <Route path="/ai-solutions/medical" element={<SolutionsMedical />} />
+            <Route path="/ai-solutions/manufacturing" element={<SolutionsManufacturing />} />
+            <Route path="/ai-solutions/contact" element={<SolutionsContact />} />
+            
+            {/* AI Performance secondary pages */}
+            <Route path="/ai-performance/benchmarks" element={<PerformanceBenchmarks />} />
+            <Route path="/ai-performance/security" element={<PerformanceSecurity />} />
+            <Route path="/ai-performance/contact" element={<PerformanceContact />} />
+            
+            {/* AI Consulting secondary pages */}
+            <Route path="/ai-consulting/strategy" element={<ConsultingStrategy />} />
+            <Route path="/ai-consulting/implementation" element={<ConsultingImplementation />} />
+            <Route path="/ai-consulting/training" element={<ConsultingTraining />} />
+            <Route path="/ai-consulting/contact" element={<ConsultingContact />} />
             
             {/* Admin routes as user facing routes */}
             <Route path="/users" element={<AdminUsers />} />
