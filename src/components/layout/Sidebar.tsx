@@ -7,7 +7,8 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { 
   Home, Server, CreditCard, Clock, Settings, Database, 
   Smartphone, BarChart, Bot, Cpu, Globe, Users,
-  LineChart, PieChart, Share2, Wifi, Zap, Network
+  LineChart, PieChart, Share2, Wifi, Zap, Network,
+  BrainCircuit, Layers, Code, BarChart4, Target
 } from 'lucide-react';
 
 import NavSection from './NavSection';
@@ -83,6 +84,40 @@ const Sidebar = ({ collapsed, className }: SidebarProps) => {
     }
   ];
 
+  // New AI service items
+  const aiServiceItems = [
+    { 
+      href: "/ai-customization", 
+      icon: <BrainCircuit className="h-4 w-4" />,
+      title: "专属AI定制",
+      isActive: isActive('/ai-customization')
+    },
+    { 
+      href: "/ai-commercial", 
+      icon: <Layers className="h-4 w-4" />,
+      title: "商业AGI服务",
+      isActive: isActive('/ai-commercial')
+    },
+    { 
+      href: "/ai-solutions", 
+      icon: <Code className="h-4 w-4" />,
+      title: "行业解决方案",
+      isActive: isActive('/ai-solutions')
+    },
+    { 
+      href: "/ai-performance", 
+      icon: <BarChart4 className="h-4 w-4" />,
+      title: "性能评估",
+      isActive: isActive('/ai-performance')
+    },
+    { 
+      href: "/ai-consulting", 
+      icon: <Target className="h-4 w-4" />,
+      title: "咨询顾问",
+      isActive: isActive('/ai-consulting')
+    }
+  ];
+
   const userCenterItems = [
     { 
       href: "/users", 
@@ -147,6 +182,13 @@ const Sidebar = ({ collapsed, className }: SidebarProps) => {
             <NavSection 
               title="算力业务" 
               items={computingItems} 
+              collapsed={collapsed} 
+              className="pt-4"
+            />
+            
+            <NavSection 
+              title="专业AI服务" 
+              items={aiServiceItems} 
               collapsed={collapsed} 
               className="pt-4"
             />

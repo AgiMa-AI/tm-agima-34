@@ -32,6 +32,13 @@ import Earnings from "./pages/Earnings";
 import Invitation from "./pages/Invitation";
 import Wallet from "./pages/Wallet";
 
+// Import the new AI service pages
+import AICustomization from "./pages/AICustomization";
+import AICommercial from "./pages/AICommercial";
+import AISolutions from "./pages/AISolutions";
+import AIPerformance from "./pages/AIPerformance";
+import AIConsulting from "./pages/AIConsulting";
+
 // Import the admin pages as regular user pages
 import AdminUsers from "./pages/admin/Users";
 import AdminTasks from "./pages/admin/Tasks";
@@ -81,6 +88,13 @@ const App = () => (
             <Route path="/mobile-computing" element={<MobileComputing />} />
             <Route path="/earnings" element={<Earnings />} />
             <Route path="/invitation" element={<Invitation />} />
+            
+            {/* New AI service routes */}
+            <Route path="/ai-customization" element={<AICustomization />} />
+            <Route path="/ai-commercial" element={<AICommercial />} />
+            <Route path="/ai-solutions" element={<AISolutions />} />
+            <Route path="/ai-performance" element={<AIPerformance />} />
+            <Route path="/ai-consulting" element={<AIConsulting />} />
             
             {/* Move admin routes to user facing routes */}
             <Route path="/users" element={<AdminUsers />} />
