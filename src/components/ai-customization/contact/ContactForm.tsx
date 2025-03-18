@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,11 +15,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { CheckCircle } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { toast as sonnerToast } from 'sonner';
+import { formConfigService, FormConfig, FormFieldOption } from '@/services/formConfigService';
 
 const ContactForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formConfig, setFormConfig] = useState<FormConfig | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -31,6 +34,23 @@ const ContactForm = () => {
     budget: '',
     description: ''
   });
+
+  // Fetch form configuration on component mount
+  useEffect(() => {
+    const fetchFormConfig = async () => {
+      setIsLoading(true);
+      try {
+        const config = await formConfigService.getContactFormConfig();
+        setFormConfig(config);
+      } catch (error) {
+        console.error('Error fetching form configuration:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchFormConfig();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -64,6 +84,29 @@ const ContactForm = () => {
       navigate('/ai-customization');
     }, 1500);
   };
+
+  // Render select options from configuration
+  const renderSelectOptions = (options: FormFieldOption[] | undefined) => {
+    if (!options || options.length === 0) return null;
+    
+    return options.map(option => (
+      <SelectItem key={option.value} value={option.value}>
+        {option.label}
+      </SelectItem>
+    ));
+  };
+
+  if (isLoading) {
+    return (
+      <Card>
+        <CardContent className="p-6">
+          <div className="flex justify-center items-center h-40">
+            <span className="text-muted-foreground">加载表单配置中...</span>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card>
@@ -160,14 +203,7 @@ const ContactForm = () => {
                   <SelectValue placeholder="请选择行业" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="finance">金融</SelectItem>
-                  <SelectItem value="healthcare">医疗</SelectItem>
-                  <SelectItem value="manufacturing">制造业</SelectItem>
-                  <SelectItem value="retail">零售</SelectItem>
-                  <SelectItem value="education">教育</SelectItem>
-                  <SelectItem value="it">IT/互联网</SelectItem>
-                  <SelectItem value="government">政府/公共事业</SelectItem>
-                  <SelectItem value="other">其他</SelectItem>
+                  {formConfig && renderSelectOptions(formConfig.industries)}
                 </SelectContent>
               </Select>
             </div>
@@ -187,11 +223,7 @@ const ContactForm = () => {
                   <SelectValue placeholder="请选择服务类型" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="enterprise">企业专属AI</SelectItem>
-                  <SelectItem value="industry">行业专用AGI</SelectItem>
-                  <SelectItem value="premium">高端定制服务</SelectItem>
-                  <SelectItem value="api">API与集成服务</SelectItem>
-                  <SelectItem value="consultation">仅需咨询</SelectItem>
+                  {formConfig && renderSelectOptions(formConfig.serviceTypes)}
                 </SelectContent>
               </Select>
             </div>
@@ -208,11 +240,7 @@ const ContactForm = () => {
                   <SelectValue placeholder="请选择预算范围" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="under100k">10万以下</SelectItem>
-                  <SelectItem value="100k-500k">10-50万</SelectItem>
-                  <SelectItem value="500k-1m">50-100万</SelectItem>
-                  <SelectItem value="above1m">100万以上</SelectItem>
-                  <SelectItem value="unknown">待定</SelectItem>
+                  {formConfig && renderSelectOptions(formConfig.budgetRanges)}
                 </SelectContent>
               </Select>
             </div>
