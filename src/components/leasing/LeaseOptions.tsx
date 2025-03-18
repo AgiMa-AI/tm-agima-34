@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import ResourceConfiguration from './ResourceConfiguration';
+import { formConfigService, ResourceConfig } from '@/services/formConfigService';
 
 interface LeaseOptionsProps {
   resourceType: string;
@@ -28,6 +29,8 @@ const LeaseOptions = ({
   setTaskType
 }: LeaseOptionsProps) => {
   const [isMobile, setIsMobile] = useState(false);
+  const [resourceConfig, setResourceConfig] = useState<ResourceConfig | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
     const checkMobile = () => {
@@ -39,6 +42,26 @@ const LeaseOptions = ({
     
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  useEffect(() => {
+    const fetchResourceConfig = async () => {
+      setIsLoading(true);
+      try {
+        const config = await formConfigService.getResourceConfig();
+        setResourceConfig(config);
+      } catch (error) {
+        console.error('Error fetching resource configuration:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchResourceConfig();
+  }, []);
+
+  if (isLoading) {
+    return <div className="p-4 text-center">加载资源配置中...</div>;
+  }
 
   return (
     <div className="grid gap-6">
@@ -52,10 +75,9 @@ const LeaseOptions = ({
                   <SelectValue placeholder="选择GPU数量" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="1">1 GPU</SelectItem>
-                  <SelectItem value="2">2 GPU</SelectItem>
-                  <SelectItem value="4">4 GPU</SelectItem>
-                  <SelectItem value="8">8 GPU</SelectItem>
+                  {resourceConfig?.gpuOptions.map(option => (
+                    <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -67,10 +89,9 @@ const LeaseOptions = ({
                   <SelectValue placeholder="选择CPU核心数" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="16">16 核心</SelectItem>
-                  <SelectItem value="32">32 核心</SelectItem>
-                  <SelectItem value="64">64 核心</SelectItem>
-                  <SelectItem value="128">128 核心</SelectItem>
+                  {resourceConfig?.cpuOptions.map(option => (
+                    <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -96,10 +117,9 @@ const LeaseOptions = ({
               <SelectValue placeholder="选择任务类型" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="training">模型训练</SelectItem>
-              <SelectItem value="inference">模型推理</SelectItem>
-              <SelectItem value="dataprocessing">数据处理</SelectItem>
-              <SelectItem value="custom">自定义任务</SelectItem>
+              {resourceConfig?.taskTypes.map(option => (
+                <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>

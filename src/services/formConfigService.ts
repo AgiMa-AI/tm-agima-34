@@ -13,6 +13,28 @@ export interface FormConfig {
   budgetRanges: FormFieldOption[];
 }
 
+// Types for service process steps
+export interface ProcessStep {
+  title: string;
+  description: string;
+}
+
+export interface ServiceProcessConfig {
+  steps: ProcessStep[];
+}
+
+// Types for resource configuration
+export interface ResourceOption {
+  value: string;
+  label: string;
+}
+
+export interface ResourceConfig {
+  gpuOptions: ResourceOption[];
+  cpuOptions: ResourceOption[];
+  taskTypes: ResourceOption[];
+}
+
 // Default configuration (as fallback)
 const defaultConfig: FormConfig = {
   industries: [
@@ -41,8 +63,42 @@ const defaultConfig: FormConfig = {
   ],
 };
 
-// Service to get form configuration
+// Default service process configuration
+const defaultServiceProcessConfig: ServiceProcessConfig = {
+  steps: [
+    { title: "提交咨询申请", description: "填写表单提交您的需求" },
+    { title: "需求沟通", description: "顾问与您深入沟通，了解详细需求" },
+    { title: "方案定制", description: "团队为您量身定制解决方案" },
+    { title: "签约合作", description: "确认方案后签订合作协议" },
+    { title: "服务交付", description: "按计划实施与交付AI解决方案" },
+  ]
+};
+
+// Default resource configuration
+const defaultResourceConfig: ResourceConfig = {
+  gpuOptions: [
+    { value: "1", label: "1 GPU" },
+    { value: "2", label: "2 GPU" },
+    { value: "4", label: "4 GPU" },
+    { value: "8", label: "8 GPU" },
+  ],
+  cpuOptions: [
+    { value: "16", label: "16 核心" },
+    { value: "32", label: "32 核心" },
+    { value: "64", label: "64 核心" },
+    { value: "128", label: "128 核心" },
+  ],
+  taskTypes: [
+    { value: "training", label: "模型训练" },
+    { value: "inference", label: "模型推理" },
+    { value: "dataprocessing", label: "数据处理" },
+    { value: "custom", label: "自定义任务" },
+  ]
+};
+
+// Consolidated service for all configurations
 export const formConfigService = {
+  // Contact form configuration
   getContactFormConfig: async (): Promise<FormConfig> => {
     try {
       // Try to fetch configuration from backend
@@ -52,6 +108,30 @@ export const formConfigService = {
       console.log('Failed to fetch form configuration, using default', error);
       // Return default configuration if API call fails
       return defaultConfig;
+    }
+  },
+  
+  // Service process configuration
+  getServiceProcessConfig: async (): Promise<ServiceProcessConfig> => {
+    try {
+      // Try to fetch service process steps from backend
+      const config = await apiService.custom<ServiceProcessConfig>('/api/config/service-process');
+      return config;
+    } catch (error) {
+      console.log('Failed to fetch service process configuration, using default', error);
+      return defaultServiceProcessConfig;
+    }
+  },
+  
+  // Resource configuration
+  getResourceConfig: async (): Promise<ResourceConfig> => {
+    try {
+      // Try to fetch resource options from backend
+      const config = await apiService.custom<ResourceConfig>('/api/config/resources');
+      return config;
+    } catch (error) {
+      console.log('Failed to fetch resource configuration, using default', error);
+      return defaultResourceConfig;
     }
   }
 };

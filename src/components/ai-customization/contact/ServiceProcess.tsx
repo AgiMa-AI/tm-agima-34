@@ -1,8 +1,40 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { formConfigService, ServiceProcessConfig } from '@/services/formConfigService';
 
 const ServiceProcess = () => {
+  const [processConfig, setProcessConfig] = useState<ServiceProcessConfig | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProcessConfig = async () => {
+      setIsLoading(true);
+      try {
+        const config = await formConfigService.getServiceProcessConfig();
+        setProcessConfig(config);
+      } catch (error) {
+        console.error('Error fetching service process configuration:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProcessConfig();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <Card>
+        <CardContent className="p-6">
+          <div className="flex justify-center items-center h-20">
+            <span className="text-muted-foreground">加载服务流程...</span>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -10,45 +42,15 @@ const ServiceProcess = () => {
       </CardHeader>
       <CardContent>
         <div className="space-y-3">
-          <div className="flex gap-2">
-            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs">1</div>
-            <div>
-              <p className="font-medium">提交咨询申请</p>
-              <p className="text-sm text-muted-foreground">填写表单提交您的需求</p>
+          {processConfig?.steps.map((step, index) => (
+            <div key={index} className="flex gap-2">
+              <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs">{index + 1}</div>
+              <div>
+                <p className="font-medium">{step.title}</p>
+                <p className="text-sm text-muted-foreground">{step.description}</p>
+              </div>
             </div>
-          </div>
-          
-          <div className="flex gap-2">
-            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs">2</div>
-            <div>
-              <p className="font-medium">需求沟通</p>
-              <p className="text-sm text-muted-foreground">顾问与您深入沟通，了解详细需求</p>
-            </div>
-          </div>
-          
-          <div className="flex gap-2">
-            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs">3</div>
-            <div>
-              <p className="font-medium">方案定制</p>
-              <p className="text-sm text-muted-foreground">团队为您量身定制解决方案</p>
-            </div>
-          </div>
-          
-          <div className="flex gap-2">
-            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs">4</div>
-            <div>
-              <p className="font-medium">签约合作</p>
-              <p className="text-sm text-muted-foreground">确认方案后签订合作协议</p>
-            </div>
-          </div>
-          
-          <div className="flex gap-2">
-            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs">5</div>
-            <div>
-              <p className="font-medium">服务交付</p>
-              <p className="text-sm text-muted-foreground">按计划实施与交付AI解决方案</p>
-            </div>
-          </div>
+          ))}
         </div>
       </CardContent>
     </Card>
