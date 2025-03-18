@@ -51,6 +51,25 @@ const LeaseOptions = ({
         setResourceConfig(config);
       } catch (error) {
         console.error('Error fetching resource configuration:', error);
+        // Set a default configuration if there's an error
+        setResourceConfig({
+          gpuOptions: [
+            { value: '1', label: '1 GPU (A100)' },
+            { value: '2', label: '2 GPUs (A100)' },
+            { value: '4', label: '4 GPUs (A100)' }
+          ],
+          cpuOptions: [
+            { value: '32', label: '32 核心' },
+            { value: '64', label: '64 核心' },
+            { value: '128', label: '128 核心' }
+          ],
+          taskTypes: [
+            { value: 'training', label: '模型训练' },
+            { value: 'inference', label: '模型推理' },
+            { value: 'finetuning', label: '模型微调' },
+            { value: 'rendering', label: '3D渲染' }
+          ]
+        });
       } finally {
         setIsLoading(false);
       }
@@ -62,6 +81,11 @@ const LeaseOptions = ({
   if (isLoading) {
     return <div className="p-4 text-center">加载资源配置中...</div>;
   }
+
+  // Ensure resourceConfig is not null before rendering selects
+  const gpuOptions = resourceConfig?.gpuOptions || [];
+  const cpuOptions = resourceConfig?.cpuOptions || [];
+  const taskTypes = resourceConfig?.taskTypes || [];
 
   return (
     <div className="grid gap-6">
@@ -75,7 +99,7 @@ const LeaseOptions = ({
                   <SelectValue placeholder="选择GPU数量" />
                 </SelectTrigger>
                 <SelectContent>
-                  {resourceConfig?.gpuOptions.map(option => (
+                  {gpuOptions.map(option => (
                     <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
                   ))}
                 </SelectContent>
@@ -89,7 +113,7 @@ const LeaseOptions = ({
                   <SelectValue placeholder="选择CPU核心数" />
                 </SelectTrigger>
                 <SelectContent>
-                  {resourceConfig?.cpuOptions.map(option => (
+                  {cpuOptions.map(option => (
                     <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
                   ))}
                 </SelectContent>
@@ -117,7 +141,7 @@ const LeaseOptions = ({
               <SelectValue placeholder="选择任务类型" />
             </SelectTrigger>
             <SelectContent>
-              {resourceConfig?.taskTypes.map(option => (
+              {taskTypes.map(option => (
                 <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
               ))}
             </SelectContent>

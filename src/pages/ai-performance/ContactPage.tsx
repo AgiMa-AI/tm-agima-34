@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import ContactForm from '@/components/ui/ContactForm';
 
 const PerformanceContact = () => {
   return (
@@ -21,11 +22,18 @@ const PerformanceContact = () => {
           <p className="text-muted-foreground mt-2">获取专业的AI系统性能评估服务</p>
         </div>
         
-        <div className="bg-muted/30 rounded-lg p-10 text-center">
-          <h2 className="text-2xl font-bold mb-2">联系页面建设中</h2>
-          <p className="text-muted-foreground">
-            我们正在完善评估服务预约表单，敬请期待...
-          </p>
+        <div className="my-8">
+          <ContactForm 
+            title="AI性能评估服务预约" 
+            description="请填写以下信息，我们的性能评估专家将与您联系"
+            submitButtonText="预约评估"
+            serviceOptions={[
+              { value: "benchmark", label: "性能基准测试" },
+              { value: "security", label: "安全性评估" },
+              { value: "optimization", label: "系统优化" },
+              { value: "comprehensive", label: "综合评估" }
+            ]}
+          />
         </div>
       </div>
     </Layout>

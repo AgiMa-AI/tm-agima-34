@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import ContactForm from '@/components/ui/ContactForm';
 
 const SolutionsContact = () => {
   return (
@@ -21,11 +22,18 @@ const SolutionsContact = () => {
           <p className="text-muted-foreground mt-2">获取针对您所在行业的专业AI解决方案</p>
         </div>
         
-        <div className="bg-muted/30 rounded-lg p-10 text-center">
-          <h2 className="text-2xl font-bold mb-2">联系页面建设中</h2>
-          <p className="text-muted-foreground">
-            我们正在完善联系咨询表单，敬请期待...
-          </p>
+        <div className="my-8">
+          <ContactForm 
+            title="行业解决方案咨询" 
+            description="请填写以下信息，我们的行业专家将针对您的需求提供定制化方案"
+            serviceOptions={[
+              { value: "finance", label: "金融行业解决方案" },
+              { value: "medical", label: "医疗行业解决方案" },
+              { value: "manufacturing", label: "制造业解决方案" },
+              { value: "retail", label: "零售行业解决方案" },
+              { value: "other", label: "其他行业" }
+            ]}
+          />
         </div>
       </div>
     </Layout>
