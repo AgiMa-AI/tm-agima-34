@@ -84,8 +84,61 @@ export default function ContactForm() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardContent className="space-y-6">
-            <PersonalInfoFields form={form} />
-            <ProjectInfoFields form={form} />
+            <PersonalInfoFields 
+              formData={{
+                name: form.watch('name'),
+                company: form.watch('company'),
+                email: form.watch('email'),
+                phone: form.watch('phone'),
+                position: '',
+              }}
+              handleChange={(e) => {
+                form.setValue(e.target.name as any, e.target.value);
+              }}
+            />
+            <ProjectInfoFields 
+              formData={{
+                industry: form.watch('industry'),
+                serviceType: form.watch('projectType'),
+                budget: form.watch('budget'),
+                description: form.watch('requirements'),
+              }}
+              formConfig={{
+                industries: [
+                  { value: 'finance', label: '金融' },
+                  { value: 'healthcare', label: '医疗健康' },
+                  { value: 'manufacturing', label: '制造业' },
+                  { value: 'retail', label: '零售' },
+                  { value: 'education', label: '教育' },
+                  { value: 'other', label: '其他' },
+                ],
+                serviceTypes: [
+                  { value: 'enterprise', label: '企业定制AGI' },
+                  { value: 'industry', label: '行业专用AGI' },
+                  { value: 'premium', label: '高级咨询服务' },
+                  { value: 'api', label: 'API与集成服务' },
+                  { value: 'other', label: '其他服务' },
+                ],
+                budgetRanges: [
+                  { value: '50k_below', label: '5万元以下' },
+                  { value: '50k_200k', label: '5-20万元' },
+                  { value: '200k_500k', label: '20-50万元' },
+                  { value: '500k_above', label: '50万元以上' },
+                ],
+              }}
+              handleChange={(e) => {
+                form.setValue('requirements', e.target.value);
+              }}
+              handleSelectChange={(name, value) => {
+                if (name === 'serviceType') {
+                  form.setValue('projectType', value as any);
+                } else if (name === 'industry') {
+                  form.setValue('industry', value);
+                } else if (name === 'budget') {
+                  form.setValue('budget', value as any);
+                }
+              }}
+            />
           </CardContent>
           <CardFooter className="flex justify-end">
             <Button 

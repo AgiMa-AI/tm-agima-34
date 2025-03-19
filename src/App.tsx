@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -41,6 +40,9 @@ import AIConsulting from "./pages/AIConsulting";
 
 // Import the AI customization secondary pages
 import EnterpriseAI from "./pages/ai-customization/EnterpriseAI";
+import IndustryAI from "./pages/ai-customization/IndustryAI";
+import PremiumService from "./pages/ai-customization/PremiumService";
+import APIIntegration from "./pages/ai-customization/APIIntegration";
 import ContactConsultation from "./pages/ai-customization/ContactConsultation";
 
 // Import the admin pages as regular user pages
