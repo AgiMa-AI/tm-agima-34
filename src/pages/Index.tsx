@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Layout from '@/components/layout/Layout';
 import MetricCard from '@/components/ui/MetricCard';
@@ -6,9 +7,10 @@ import FilterBar from '@/components/dashboard/FilterBar';
 import HostMap from '@/components/charts/HostMap';
 import StatsMultiple from '@/components/charts/StatsMultiple';
 import GpuComparison from '@/components/charts/GpuComparison';
+import Chat from '@/components/chat/Chat';
 import { useInstances } from '@/hooks/useInstances';
 import { useChartData } from '@/hooks/useChartData';
-import { Server, Clock, CreditCard, Database, BarChart, PieChart, LineChart, RefreshCcw } from 'lucide-react';
+import { Server, Clock, CreditCard, Database, BarChart, PieChart, LineChart } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
@@ -182,6 +184,9 @@ const Index = () => {
           )}
         </div>
       </div>
+      
+      {/* Add the Chat component */}
+      <Chat initialOpen={false} />
     </Layout>
   );
 };
