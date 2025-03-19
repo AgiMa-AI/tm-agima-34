@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Send, X, Minimize, MessageCircle } from 'lucide-react';
+import { Send, X, Minimize, MessageCircle, Bot } from 'lucide-react';
 import ChatBubble from './ChatBubble';
 import chatService, { ChatSession } from '@/services/chatService';
 import { useToast } from '@/hooks/use-toast';
@@ -25,6 +25,7 @@ const Chat = ({ initialOpen = false }: ChatProps) => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
+  const [connectionError, setConnectionError] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -34,6 +35,7 @@ const Chat = ({ initialOpen = false }: ChatProps) => {
   useEffect(() => {
     const initSession = async () => {
       try {
+        setConnectionError(false);
         const session = await chatService.createChatSession();
         setSessionId(session.id);
         
@@ -47,6 +49,7 @@ const Chat = ({ initialOpen = false }: ChatProps) => {
         ]);
       } catch (error) {
         console.error('Failed to initialize chat session', error);
+        setConnectionError(true);
         toast({
           title: "连接错误",
           description: "无法连接到聊天服务，请稍后再试。",
@@ -90,8 +93,10 @@ const Chat = ({ initialOpen = false }: ChatProps) => {
     try {
       const response = await chatService.sendMessage(sessionId, input);
       setMessages(prev => [...prev, response]);
+      setConnectionError(false);
     } catch (error) {
       console.error('Failed to send message', error);
+      setConnectionError(true);
       toast({
         title: "发送失败",
         description: "无法发送消息，请稍后再试。",
@@ -111,6 +116,33 @@ const Chat = ({ initialOpen = false }: ChatProps) => {
   
   const toggleChat = () => {
     setIsOpen(prev => !prev);
+  };
+  
+  const retryConnection = async () => {
+    if (!sessionId) {
+      try {
+        setIsLoading(true);
+        const session = await chatService.createChatSession();
+        setSessionId(session.id);
+        setConnectionError(false);
+        setMessages([
+          {
+            content: "连接已恢复。有什么我可以帮助您的？",
+            isUser: false,
+            timestamp: new Date()
+          }
+        ]);
+      } catch (error) {
+        console.error('Failed to reconnect', error);
+        toast({
+          title: "重新连接失败",
+          description: "无法连接到聊天服务，请稍后再试。",
+          variant: "destructive"
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    }
   };
   
   return (
@@ -172,6 +204,22 @@ const Chat = ({ initialOpen = false }: ChatProps) => {
                   </div>
                 </div>
               )}
+              
+              {connectionError && !isLoading && (
+                <div className="flex justify-center p-4">
+                  <div className="bg-destructive/10 rounded-lg p-3 text-center">
+                    <p className="text-sm text-destructive mb-2">连接服务器失败</p>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={retryConnection}
+                      className="text-xs"
+                    >
+                      重试连接
+                    </Button>
+                  </div>
+                </div>
+              )}
             </div>
           </ScrollArea>
         </CardContent>
@@ -184,12 +232,12 @@ const Chat = ({ initialOpen = false }: ChatProps) => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              disabled={isLoading || !sessionId}
+              disabled={isLoading || !sessionId || connectionError}
               className="flex-1"
             />
             <Button 
               onClick={handleSend} 
-              disabled={isLoading || !input.trim() || !sessionId} 
+              disabled={isLoading || !input.trim() || !sessionId || connectionError} 
               size="icon"
             >
               <Send className="h-4 w-4" />
