@@ -1,17 +1,10 @@
 
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Separator } from '@/components/ui/separator';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { 
-  Home, Server, CreditCard, Clock, Settings, Database, 
-  Smartphone, BarChart, Bot, Cpu, Globe, Users,
-  LineChart, PieChart, Share2, Wifi, Zap, Network,
-  BrainCircuit, Layers, Code, BarChart4, Target
-} from 'lucide-react';
-
-import NavSection from './NavSection';
+import { Server } from 'lucide-react';
+import SidebarNavigation from './sidebar/SidebarNavigation';
 import SidebarFooter from './SidebarFooter';
 
 interface SidebarProps {
@@ -20,143 +13,6 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ collapsed, className }: SidebarProps) => {
-  const location = useLocation();
-  const isActive = (path: string) => location.pathname === path;
-
-  // Define sections of navigation
-  const overviewItems = [
-    { 
-      href: "/", 
-      icon: <Home className="h-4 w-4" />,
-      title: "控制面板",
-      isActive: isActive('/')
-    },
-    { 
-      href: "/instances", 
-      icon: <Server className="h-4 w-4" />,
-      title: "主机实例",
-      isActive: isActive('/instances')
-    },
-    { 
-      href: "/agi-models", 
-      icon: <Bot className="h-4 w-4" />,
-      title: "AGI 模型",
-      isActive: isActive('/agi-models') || location.pathname.startsWith('/agi/')
-    },
-    { 
-      href: "/charts", 
-      icon: <BarChart className="h-4 w-4" />,
-      title: "市场数据",
-      isActive: isActive('/charts')
-    }
-  ];
-
-  const computingItems = [
-    { 
-      href: "/agi-hosting", 
-      icon: <Cpu className="h-4 w-4" />,
-      title: "算力出租",
-      isActive: isActive('/agi-hosting')
-    },
-    { 
-      href: "/agi-leasing", 
-      icon: <LineChart className="h-4 w-4" />,
-      title: "按天租赁",
-      isActive: isActive('/agi-leasing')
-    },
-    { 
-      href: "/service-distribution", 
-      icon: <Network className="h-4 w-4" />,
-      title: "服务分布",
-      isActive: isActive('/service-distribution')
-    },
-    { 
-      href: "/mobile-computing", 
-      icon: <Smartphone className="h-4 w-4" />,
-      title: "移动算力",
-      isActive: isActive('/mobile-computing')
-    },
-    { 
-      href: "/earnings", 
-      icon: <PieChart className="h-4 w-4" />,
-      title: "收益明细",
-      isActive: isActive('/earnings')
-    }
-  ];
-
-  // New AI service items
-  const aiServiceItems = [
-    { 
-      href: "/ai-customization", 
-      icon: <BrainCircuit className="h-4 w-4" />,
-      title: "专属AI定制",
-      isActive: isActive('/ai-customization')
-    },
-    { 
-      href: "/ai-commercial", 
-      icon: <Layers className="h-4 w-4" />,
-      title: "商业AGI服务",
-      isActive: isActive('/ai-commercial')
-    },
-    { 
-      href: "/ai-solutions", 
-      icon: <Code className="h-4 w-4" />,
-      title: "行业解决方案",
-      isActive: isActive('/ai-solutions')
-    },
-    { 
-      href: "/ai-performance", 
-      icon: <BarChart4 className="h-4 w-4" />,
-      title: "性能评估",
-      isActive: isActive('/ai-performance')
-    },
-    { 
-      href: "/ai-consulting", 
-      icon: <Target className="h-4 w-4" />,
-      title: "咨询顾问",
-      isActive: isActive('/ai-consulting')
-    }
-  ];
-
-  const userCenterItems = [
-    { 
-      href: "/users", 
-      icon: <Users className="h-4 w-4" />,
-      title: "用户管理",
-      isActive: isActive('/users')
-    },
-    { 
-      href: "/tasks", 
-      icon: <Clock className="h-4 w-4" />,
-      title: "任务调度",
-      isActive: isActive('/tasks')
-    },
-    { 
-      href: "/invitation", 
-      icon: <Share2 className="h-4 w-4" />,
-      title: "邀请管理",
-      isActive: isActive('/invitation')
-    },
-    { 
-      href: "/storage", 
-      icon: <Database className="h-4 w-4" />,
-      title: "存储管理",
-      isActive: isActive('/storage')
-    },
-    { 
-      href: "/mobile-app", 
-      icon: <Zap className="h-4 w-4" />,
-      title: "移动应用",
-      isActive: isActive('/mobile-app')
-    },
-    { 
-      href: "/settings", 
-      icon: <Settings className="h-4 w-4" />,
-      title: "账户设置",
-      isActive: isActive('/settings')
-    }
-  ];
-
   return (
     <aside className={cn(
       'border-r bg-background transition-all duration-300 ease-in-out',
@@ -172,36 +28,7 @@ const Sidebar = ({ collapsed, className }: SidebarProps) => {
           </Link>
         </div>
         <ScrollArea className="flex-1 py-4">
-          <nav className="grid gap-2 px-2">
-            <NavSection 
-              title="数据概览" 
-              items={overviewItems} 
-              collapsed={collapsed} 
-            />
-            
-            <NavSection 
-              title="算力业务" 
-              items={computingItems} 
-              collapsed={collapsed} 
-              className="pt-4"
-            />
-            
-            <NavSection 
-              title="专业AI服务" 
-              items={aiServiceItems} 
-              collapsed={collapsed} 
-              className="pt-4"
-            />
-            
-            {!collapsed && <Separator className="my-4" />}
-            
-            <NavSection 
-              title="用户中心" 
-              items={userCenterItems} 
-              collapsed={collapsed} 
-              className="pt-2"
-            />
-          </nav>
+          <SidebarNavigation collapsed={collapsed} />
         </ScrollArea>
         <SidebarFooter collapsed={collapsed} />
       </div>
