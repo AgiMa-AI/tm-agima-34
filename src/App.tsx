@@ -123,6 +123,9 @@ const App = () => (
             
             {/* AI Customization secondary pages */}
             <Route path="/ai-customization/enterprise" element={<EnterpriseAI />} />
+            <Route path="/ai-customization/industry" element={<IndustryAI />} />
+            <Route path="/ai-customization/premium" element={<PremiumService />} />
+            <Route path="/ai-customization/api" element={<APIIntegration />} />
             <Route path="/ai-customization/contact" element={<ContactConsultation />} />
             
             {/* AI Commercial secondary pages */}
