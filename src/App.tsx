@@ -41,7 +41,6 @@ import AIConsulting from "./pages/AIConsulting";
 
 // Import the AI customization secondary pages
 import EnterpriseAI from "./pages/ai-customization/EnterpriseAI";
-import IndustryAI from "./pages/ai-customization/IndustryAI";
 import ContactConsultation from "./pages/ai-customization/ContactConsultation";
 
 // Import the admin pages as regular user pages
@@ -124,7 +123,6 @@ const App = () => (
             
             {/* AI Customization secondary pages */}
             <Route path="/ai-customization/enterprise" element={<EnterpriseAI />} />
-            <Route path="/ai-customization/industry" element={<IndustryAI />} />
             <Route path="/ai-customization/contact" element={<ContactConsultation />} />
             
             {/* AI Commercial secondary pages */}
