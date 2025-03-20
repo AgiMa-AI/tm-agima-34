@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ChevronRight } from 'lucide-react';
-import { Checkbox } from '@/components/ui/checkbox';
 
 interface RegisterFormProps {
   isLoading: boolean;
@@ -46,6 +45,10 @@ const RegisterForm = ({ isLoading, onSubmit }: RegisterFormProps) => {
       ...prev,
       userType: type
     }));
+  };
+
+  const handleAgreeTermsChange = () => {
+    setAgreeTerms(!agreeTerms);
   };
 
   return (
@@ -129,15 +132,17 @@ const RegisterForm = ({ isLoading, onSubmit }: RegisterFormProps) => {
       </div>
       
       <div className="flex items-center space-x-2 mt-2">
-        <Checkbox 
+        <input 
+          type="checkbox"
           id="terms"
           checked={agreeTerms}
-          onCheckedChange={() => setAgreeTerms(!agreeTerms)}
-          className="h-4 w-4 rounded-sm"
+          onChange={handleAgreeTermsChange}
+          className="h-5 w-5 rounded-md border border-primary/70 shadow-sm transition-all focus:ring-2 focus:ring-primary touch-target"
         />
         <Label
           htmlFor="terms"
-          className="text-xs text-muted-foreground cursor-pointer"
+          className="text-xs sm:text-sm text-muted-foreground cursor-pointer"
+          onClick={handleAgreeTermsChange}
         >
           我同意
           <Link to="/terms" className="text-primary hover:underline"> 服务条款 </Link>
