@@ -51,11 +51,11 @@ const RegisterForm = ({ isLoading, onSubmit }: RegisterFormProps) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
       <div className="space-y-1.5 sm:space-y-2">
-        <Label htmlFor="register-username" className="text-sm font-medium text-white/90">用户名</Label>
+        <Label htmlFor="register-username" className="text-sm font-medium">用户名</Label>
         <Input 
           id="register-username" 
           placeholder="创建您的用户名" 
-          className="h-10 sm:h-12 bg-white/10 border-primary/20 focus:border-primary focus:ring-primary/20 text-white placeholder:text-white/50"
+          className="h-10 sm:h-12"
           value={formData.username}
           onChange={(e) => setFormData({...formData, username: e.target.value})}
           required
@@ -63,24 +63,24 @@ const RegisterForm = ({ isLoading, onSubmit }: RegisterFormProps) => {
       </div>
       
       <div className="space-y-1.5 sm:space-y-2">
-        <Label htmlFor="invite-code" className="text-sm font-medium text-white/90">邀请码</Label>
+        <Label htmlFor="invite-code" className="text-sm font-medium">邀请码</Label>
         <Input 
           id="invite-code" 
           placeholder="请输入邀请码（可选）" 
-          className="h-10 sm:h-12 bg-white/10 border-primary/20 focus:border-primary focus:ring-primary/20 text-white placeholder:text-white/50"
+          className="h-10 sm:h-12"
           value={formData.inviteCode}
           onChange={(e) => setFormData({...formData, inviteCode: e.target.value})}
         />
-        <p className="text-xs text-white/60">使用邀请码注册可获得额外奖励</p>
+        <p className="text-xs text-muted-foreground">使用邀请码注册可获得额外奖励</p>
       </div>
       
       <div className="space-y-1.5 sm:space-y-2">
-        <Label htmlFor="register-password" className="text-sm font-medium text-white/90">密码</Label>
+        <Label htmlFor="register-password" className="text-sm font-medium">密码</Label>
         <Input 
           id="register-password" 
           type="password" 
           placeholder="创建您的密码" 
-          className="h-10 sm:h-12 bg-white/10 border-primary/20 focus:border-primary focus:ring-primary/20 text-white placeholder:text-white/50"
+          className="h-10 sm:h-12"
           value={formData.password}
           onChange={(e) => setFormData({...formData, password: e.target.value})}
           required
@@ -88,12 +88,12 @@ const RegisterForm = ({ isLoading, onSubmit }: RegisterFormProps) => {
       </div>
       
       <div className="space-y-1.5 sm:space-y-2">
-        <Label htmlFor="register-confirm-password" className="text-sm font-medium text-white/90">确认密码</Label>
+        <Label htmlFor="register-confirm-password" className="text-sm font-medium">确认密码</Label>
         <Input 
           id="register-confirm-password" 
           type="password" 
           placeholder="再次输入您的密码" 
-          className="h-10 sm:h-12 bg-white/10 border-primary/20 focus:border-primary focus:ring-primary/20 text-white placeholder:text-white/50"
+          className="h-10 sm:h-12"
           value={formData.confirmPassword}
           onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
           required
@@ -101,14 +101,14 @@ const RegisterForm = ({ isLoading, onSubmit }: RegisterFormProps) => {
       </div>
       
       <div className="space-y-1.5 sm:space-y-2">
-        <Label className="text-sm font-medium text-white/90">您是?</Label>
+        <Label className="text-sm font-medium">您是?</Label>
         <div className="grid grid-cols-2 gap-2 sm:gap-3">
           <button
             type="button"
             className={`w-full h-10 sm:h-12 rounded-xl px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-colors touch-target ${
               formData.userType === 'renter' 
-                ? 'bg-primary text-primary-foreground shadow-sm neon-pulse' 
-                : 'border border-primary/30 bg-white/5 hover:bg-primary/20 text-white'
+                ? 'bg-primary text-primary-foreground shadow-sm' 
+                : 'border border-input bg-background hover:bg-accent hover:text-accent-foreground'
             }`}
             onClick={() => handleUserTypeChange('renter')}
           >
@@ -118,8 +118,8 @@ const RegisterForm = ({ isLoading, onSubmit }: RegisterFormProps) => {
             type="button"
             className={`w-full h-10 sm:h-12 rounded-xl px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-colors touch-target ${
               formData.userType === 'provider' 
-                ? 'bg-primary text-primary-foreground shadow-sm neon-pulse' 
-                : 'border border-primary/30 bg-white/5 hover:bg-primary/20 text-white'
+                ? 'bg-primary text-primary-foreground shadow-sm' 
+                : 'border border-input bg-background hover:bg-accent hover:text-accent-foreground'
             }`}
             onClick={() => handleUserTypeChange('provider')}
           >
@@ -128,16 +128,16 @@ const RegisterForm = ({ isLoading, onSubmit }: RegisterFormProps) => {
         </div>
       </div>
       
-      <div className="flex items-start space-x-2 mt-1">
+      <div className="flex items-center space-x-2 mt-2">
         <Checkbox 
           id="terms"
           checked={agreeTerms}
           onCheckedChange={() => setAgreeTerms(!agreeTerms)}
-          className="h-4 w-4 rounded-sm mt-0.5 text-primary border-primary/50"
+          className="h-4 w-4 rounded-sm"
         />
         <Label
           htmlFor="terms"
-          className="text-xs text-white/70 cursor-pointer"
+          className="text-xs text-muted-foreground cursor-pointer"
         >
           我同意
           <Link to="/terms" className="text-primary hover:underline"> 服务条款 </Link>
@@ -148,7 +148,7 @@ const RegisterForm = ({ isLoading, onSubmit }: RegisterFormProps) => {
       
       <Button 
         type="submit" 
-        className="w-full h-11 sm:h-12 mt-2 rounded-xl shadow-md hover:shadow-lg transition-all font-medium text-base touch-target bg-primary hover:bg-primary/90 tiffany-glow"
+        className="w-full h-11 sm:h-12 mt-2 rounded-xl shadow-md hover:shadow-lg transition-all font-medium text-base touch-target"
         disabled={isLoading}
       >
         {isLoading ? "注册中..." : (
