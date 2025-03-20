@@ -1,9 +1,9 @@
-
 import React, { useState } from 'react';
 import Layout from '@/components/layout/Layout';
 import InstanceCard from '@/components/dashboard/InstanceCard';
 import FilterBar from '@/components/dashboard/FilterBar';
 import { useInstances } from '@/hooks/useInstances';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { Server, MessageSquare, CreditCard } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -26,12 +26,15 @@ const Instances = () => {
     filteredCount
   } = useInstances();
   
+  const { toast } = useToast();
+  
+  const isMobile = useIsMobile();
+  
   const [isRentDialogOpen, setIsRentDialogOpen] = useState(false);
   const [isPaymentDialogOpen, setIsPaymentDialogOpen] = useState(false);
   const [selectedInstance, setSelectedInstance] = useState<any>(null);
   const [rentalPeriod, setRentalPeriod] = useState(1);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('wechat');
-  const { toast } = useToast();
   
   const handleSearch = (query: string) => {
     updateFilters({ search: query || undefined });
@@ -141,7 +144,7 @@ const Instances = () => {
 
       {/* Rental Dialog */}
       <Dialog open={isRentDialogOpen} onOpenChange={setIsRentDialogOpen}>
-        <DialogContent>
+        <DialogContent className={isMobile ? "sm:max-w-[95%] p-4 rounded-xl" : ""}>
           <DialogHeader>
             <DialogTitle>租用 {selectedInstance?.name}</DialogTitle>
             <DialogDescription>
@@ -158,6 +161,7 @@ const Instances = () => {
                 min="1"
                 value={rentalPeriod}
                 onChange={(e) => setRentalPeriod(parseInt(e.target.value))}
+                className="touch-feedback"
               />
             </div>
             
@@ -174,11 +178,18 @@ const Instances = () => {
             </div>
           </div>
           
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setIsRentDialogOpen(false)}>
+          <DialogFooter className={isMobile ? "flex-col space-y-2" : ""}>
+            <Button 
+              variant="outline" 
+              onClick={() => setIsRentDialogOpen(false)}
+              className="w-full sm:w-auto touch-feedback"
+            >
               取消
             </Button>
-            <Button onClick={handleRentNow}>
+            <Button 
+              onClick={handleRentNow}
+              className="w-full sm:w-auto touch-feedback"
+            >
               确认租用
             </Button>
           </DialogFooter>
@@ -187,7 +198,7 @@ const Instances = () => {
       
       {/* Payment Method Dialog */}
       <Dialog open={isPaymentDialogOpen} onOpenChange={setIsPaymentDialogOpen}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className={isMobile ? "sm:max-w-[95%] p-4 rounded-xl" : "sm:max-w-md"}>
           <DialogHeader>
             <DialogTitle>请选择支付方式</DialogTitle>
             <DialogDescription>
@@ -215,9 +226,9 @@ const Instances = () => {
                 className="space-y-3"
               >
                 {paymentMethods.map(method => (
-                  <div key={method.id} className="flex items-center space-x-2">
-                    <RadioGroupItem value={method.id} id={`list-${method.id}`} />
-                    <Label htmlFor={`list-${method.id}`} className="flex items-center cursor-pointer">
+                  <div key={method.id} className="flex items-center space-x-2 touch-feedback active:bg-primary/5 p-2 rounded-lg">
+                    <RadioGroupItem value={method.id} id={`list-${method.id}`} className="touch-target" />
+                    <Label htmlFor={`list-${method.id}`} className="flex items-center cursor-pointer flex-1">
                       <span className="flex items-center justify-center w-8 h-8 rounded-md bg-muted mr-2">
                         {method.icon}
                       </span>
@@ -229,17 +240,21 @@ const Instances = () => {
             </div>
           </div>
           
-          <DialogFooter className="sm:justify-between">
+          <DialogFooter className={isMobile ? "flex-col space-y-2" : "sm:justify-between"}>
             <Button 
               variant="outline" 
               onClick={() => {
                 setIsPaymentDialogOpen(false);
                 setIsRentDialogOpen(true);
               }}
+              className="w-full sm:w-auto touch-feedback"
             >
               返回
             </Button>
-            <Button onClick={handlePayment}>
+            <Button 
+              onClick={handlePayment}
+              className="w-full sm:w-auto touch-feedback"
+            >
               确认支付
             </Button>
           </DialogFooter>
