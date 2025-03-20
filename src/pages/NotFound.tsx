@@ -1,4 +1,5 @@
-import { useLocation } from "react-router-dom";
+
+import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 
 const NotFound = () => {
@@ -12,13 +13,25 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 hover:text-blue-700 underline">
-          Return to Home
-        </a>
+    <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="text-center max-w-md px-6">
+        <div className="mb-8">
+          <div className="h-24 w-24 bg-primary/10 backdrop-blur-md rounded-2xl shadow-xl flex items-center justify-center tiffany-shadow mx-auto">
+            <span className="text-primary text-4xl font-bold">404</span>
+          </div>
+        </div>
+        
+        <h1 className="text-3xl font-bold mb-4 brand-text-gradient">页面未找到</h1>
+        <p className="text-lg text-muted-foreground mb-6">
+          抱歉，您尝试访问的页面不存在或已被移除。
+        </p>
+        
+        <Link 
+          to="/" 
+          className="inline-block px-6 py-3 rounded-xl bg-primary text-white hover:bg-primary/90 transition-colors"
+        >
+          返回首页
+        </Link>
       </div>
     </div>
   );

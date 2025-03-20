@@ -7,6 +7,7 @@ import { useAuth } from '@/hooks/useAuth';
 import AuthLayout from '@/components/auth/AuthLayout';
 import LoginForm from '@/components/auth/LoginForm';
 import RegisterForm from '@/components/auth/RegisterForm';
+import CurrentUser from '@/components/auth/CurrentUser';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -21,6 +22,21 @@ const Login = () => {
     }, 1000);
     return () => clearTimeout(timer);
   }, []);
+
+  // 如果用户已登录，显示当前用户信息
+  if (user && animationCompleted) {
+    return (
+      <AuthLayout 
+        title="您已登录"
+        description="您可以继续使用服务或切换账号"
+      >
+        <CurrentUser 
+          user={user} 
+          onSwitchAccount={logout} 
+        />
+      </AuthLayout>
+    );
+  }
 
   const handleLoginSubmit = async (username: string, password: string) => {
     setIsLoading(true);
