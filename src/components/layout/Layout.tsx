@@ -6,6 +6,8 @@ import Sidebar from './Sidebar';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
+import { useMobile } from '@/hooks/use-mobile';
+import MobileLayoutReset from './MobileLayoutReset';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -21,27 +23,8 @@ const Layout = ({
   searchHandler
 }: LayoutProps) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const { isMobile, resetLayout, deviceType } = useMobile();
   const location = useLocation();
-
-  useEffect(() => {
-    const handleResize = () => {
-      const newIsMobile = window.innerWidth < 768;
-      setIsMobile(newIsMobile);
-      if (window.innerWidth >= 1024) {
-        setSidebarCollapsed(false);
-      } else {
-        setSidebarCollapsed(true);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize(); // Initial check
-    
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   // Close sidebar when route changes on mobile
   useEffect(() => {
@@ -49,6 +32,14 @@ const Layout = ({
       setSidebarCollapsed(true);
     }
   }, [location.pathname, isMobile]);
+
+  useEffect(() => {
+    if (!isMobile && window.innerWidth >= 1024) {
+      setSidebarCollapsed(false);
+    } else {
+      setSidebarCollapsed(true);
+    }
+  }, [isMobile, deviceType]);
 
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed);
@@ -104,11 +95,17 @@ const Layout = ({
           "flex-1 overflow-y-auto transition-all duration-300 ease-in-out",
           !hideSidebar && !sidebarCollapsed && !isMobile ? 'lg:ml-[240px]' : 'ml-0'
         )}>
-          <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 md:px-6 animate-fade-in">
+          <div className={cn(
+            "container mx-auto py-4 sm:py-6 px-3 sm:px-4 md:px-6 animate-fade-in",
+            isMobile ? "adaptive-container" : ""
+          )}>
             {children}
           </div>
         </main>
       </div>
+      
+      {/* Mobile layout reset component */}
+      <MobileLayoutReset />
     </div>
   );
 };

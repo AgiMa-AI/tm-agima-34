@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import Layout from '@/components/layout/Layout';
 import InstanceCard from '@/components/dashboard/InstanceCard';
 import FilterBar from '@/components/dashboard/FilterBar';
 import { useInstances } from '@/hooks/useInstances';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useMobile } from '@/hooks/use-mobile';
 import { Server, MessageSquare, CreditCard } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -28,13 +29,22 @@ const Instances = () => {
   
   const { toast } = useToast();
   
-  const isMobile = useIsMobile();
+  const { isMobile, resetLayout } = useMobile();
   
   const [isRentDialogOpen, setIsRentDialogOpen] = useState(false);
   const [isPaymentDialogOpen, setIsPaymentDialogOpen] = useState(false);
   const [selectedInstance, setSelectedInstance] = useState<any>(null);
   const [rentalPeriod, setRentalPeriod] = useState(1);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('wechat');
+  const [mobileLayout, setMobileLayout] = useState('default');
+  
+  // Effect to listen for layout changes
+  useEffect(() => {
+    const savedLayout = localStorage.getItem('preferred-mobile-layout');
+    if (savedLayout) {
+      setMobileLayout(savedLayout);
+    }
+  }, [resetLayout]);
   
   const handleSearch = (query: string) => {
     updateFilters({ search: query || undefined });
@@ -90,6 +100,42 @@ const Instances = () => {
     },
   ];
   
+  // Render functions for different mobile layouts
+  const renderInstanceGrid = () => {
+    const gridClassName = mobileLayout === 'compact' && isMobile
+      ? "grid grid-cols-1 gap-3 sm:gap-4"
+      : mobileLayout === 'detailed' && isMobile
+        ? "grid grid-cols-1 gap-4 sm:gap-5"
+        : "grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6";
+    
+    return (
+      <div className={gridClassName}>
+        {instances.map((instance) => (
+          <InstanceCard 
+            key={instance.id} 
+            instance={instance} 
+            onRent={() => handleRentInstance(instance)}
+          />
+        ))}
+      </div>
+    );
+  };
+  
+  // Skeleton loader with responsive grid
+  const renderSkeletonLoader = () => {
+    const skeletonCount = isMobile ? 4 : 8;
+    
+    return (
+      <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+        {Array(skeletonCount).fill(0).map((_, i) => (
+          <div key={i} className="flex flex-col space-y-3">
+            <Skeleton className="h-[200px] sm:h-[250px] w-full rounded-xl" />
+          </div>
+        ))}
+      </div>
+    );
+  };
+  
   return (
     <Layout searchHandler={handleSearch}>
       <div className="space-y-4 sm:space-y-6">
@@ -114,23 +160,9 @@ const Instances = () => {
         </div>
         
         {loading ? (
-          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
-            {Array(8).fill(0).map((_, i) => (
-              <div key={i} className="flex flex-col space-y-3">
-                <Skeleton className="h-[250px] sm:h-[300px] w-full rounded-xl" />
-              </div>
-            ))}
-          </div>
+          renderSkeletonLoader()
         ) : instances.length > 0 ? (
-          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
-            {instances.map((instance) => (
-              <InstanceCard 
-                key={instance.id} 
-                instance={instance} 
-                onRent={() => handleRentInstance(instance)}
-              />
-            ))}
-          </div>
+          renderInstanceGrid()
         ) : (
           <div className="flex flex-col items-center justify-center py-6 sm:py-8 md:py-12 text-center font-display">
             <Server className="h-10 w-10 sm:h-12 sm:w-12 text-muted-foreground/50 mb-3 sm:mb-4" />
@@ -142,7 +174,7 @@ const Instances = () => {
         )}
       </div>
 
-      {/* Rental Dialog */}
+      {/* Rental Dialog - mobile optimized */}
       <Dialog open={isRentDialogOpen} onOpenChange={setIsRentDialogOpen}>
         <DialogContent className={isMobile ? "sm:max-w-[95%] p-4 rounded-xl" : ""}>
           <DialogHeader>
@@ -196,7 +228,7 @@ const Instances = () => {
         </DialogContent>
       </Dialog>
       
-      {/* Payment Method Dialog */}
+      {/* Payment Method Dialog - mobile optimized */}
       <Dialog open={isPaymentDialogOpen} onOpenChange={setIsPaymentDialogOpen}>
         <DialogContent className={isMobile ? "sm:max-w-[95%] p-4 rounded-xl" : "sm:max-w-md"}>
           <DialogHeader>

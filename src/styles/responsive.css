@@ -53,6 +53,45 @@
   .press-effect {
     @apply transition-transform active:scale-95;
   }
+  
+  /* Mobile layout reset container */
+  .mobile-reset-layout {
+    @apply fixed inset-0 z-50 bg-background overflow-auto transform transition-transform duration-300;
+  }
+  
+  /* Mobile-first grid styles */
+  .mobile-first-grid {
+    @apply grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
+  }
+  
+  /* Adaptive spacing utility */
+  .adaptive-spacing {
+    @apply p-2 sm:p-3 md:p-4 lg:p-6;
+  }
+  
+  /* Mobile condensed view */
+  .mobile-condensed {
+    @apply text-xs leading-tight sm:text-sm sm:leading-normal md:text-base;
+  }
+  
+  /* Mobile adaptive container */
+  .adaptive-container {
+    @apply w-full px-3 sm:px-4 md:px-6 mx-auto;
+  }
+  
+  /* Bottom sheet for mobile */
+  .mobile-bottom-sheet {
+    @apply fixed bottom-0 left-0 right-0 bg-background rounded-t-2xl shadow-lg z-50 transform transition-transform duration-300;
+  }
+  
+  /* Mobile bottom sheet show/hide */
+  .sheet-open {
+    @apply translate-y-0;
+  }
+  
+  .sheet-closed {
+    @apply translate-y-full;
+  }
 }
 
 /* Media Queries for better mobile support */
@@ -85,6 +124,23 @@
     margin-bottom: 0.5rem;
     border-radius: 0.75rem;
   }
+  
+  /* Mobile layout reset styles */
+  .mobile-layout-reset {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 100;
+    @apply bg-primary text-white rounded-full shadow-lg h-12 w-12 flex items-center justify-center;
+  }
+  
+  /* Mobile landscape specific styles */
+  @media (orientation: landscape) {
+    .mobile-adaptive-height {
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+  }
 }
 
 @media (max-width: 480px) {
@@ -106,6 +162,18 @@
   
   .xs-text-sm {
     font-size: 0.875rem !important;
+  }
+  
+  /* Improved mobile card rendering */
+  .mobile-card {
+    @apply shadow-sm border-0;
+  }
+  
+  /* Mobile-specific typography */
+  .mobile-heading {
+    font-size: 1.25rem !important;
+    line-height: 1.4 !important;
+    font-weight: 600 !important;
   }
 }
 
@@ -157,5 +225,54 @@
   .touch-feedback:active {
     background-color: rgba(0,188,190,0.1);
     transform: scale(0.98);
+  }
+  
+  /* Improve touch target accessibility */
+  .button-grid button,
+  .touch-list-item {
+    min-height: 48px;
+  }
+}
+
+/* Mobile layout reset animations */
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.slide-up {
+  animation: slide-up 0.3s ease forwards;
+}
+
+/* Prevent overscroll on iOS */
+html, body {
+  overscroll-behavior: none;
+}
+
+/* Mobile-first containers */
+.mobile-container {
+  @apply px-3 sm:px-4 md:px-6 lg:px-8 mx-auto w-full;
+  max-width: 100%;
+}
+
+@media (min-width: 640px) {
+  .mobile-container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-container {
+    max-width: 1024px;
   }
 }
