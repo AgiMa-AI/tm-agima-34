@@ -12,7 +12,7 @@ interface AuthLayoutProps {
 
 const AuthLayout = ({ children, title, description }: AuthLayoutProps) => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-secondary/50 to-background flex flex-col items-center justify-center p-4 sm:p-6 overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-secondary/20 flex flex-col items-center justify-center p-4 sm:p-6 overflow-hidden">
       <AuthDecorations />
       
       <div className="w-full max-w-[340px] xs:max-w-md transition-all duration-700 opacity-100 translate-y-0">
@@ -36,7 +36,7 @@ const AuthLayout = ({ children, title, description }: AuthLayoutProps) => {
           </div>
         </div>
         
-        <Card className="w-full rounded-2xl shadow-xl border-primary/10 tiffany-shadow animate-fade-in overflow-hidden backdrop-blur-sm">
+        <Card className="w-full rounded-2xl shadow-xl border-primary/10 tiffany-shadow animate-fade-in overflow-hidden backdrop-blur-sm bg-white/50">
           <CardHeader className="space-y-1 px-6 py-5 bg-primary/5">
             <CardTitle className="text-xl text-center font-bold">{title}</CardTitle>
             {description && (
