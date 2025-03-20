@@ -13,22 +13,27 @@ interface AuthLayoutProps {
 const AuthLayout = ({ children, title, description }: AuthLayoutProps) => {
   return (
     <div className="min-h-screen relative flex flex-col items-center justify-center p-4 sm:p-6 overflow-hidden">
-      {/* 动态4K高清背景 */}
+      {/* 动态高清APNG背景 */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
-        <video 
-          className="absolute w-full h-full object-cover"
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-        >
-          <source 
-            src="https://cdn.pixabay.com/vimeo/695612960/abstract-130883.mp4?width=1280&hash=2eb31f3e9152d1a39e446b4c8e17d0e2ed84acbc" 
-            type="video/mp4" 
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/70 via-indigo-800/60 to-blue-900/70 backdrop-blur-sm"></div>
+        
+        {/* Dynamic APNG images overlaid */}
+        <div className="absolute inset-0 opacity-40 mix-blend-screen">
+          <img 
+            src="https://miro.medium.com/v2/resize:fit:1400/1*kGGnkH0skfTjNVYQJz8h9Q.gif" 
+            alt="Abstract background" 
+            className="absolute w-full h-full object-cover"
           />
-          Your browser does not support the video tag.
-        </video>
-        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+        </div>
+        
+        {/* Animated particles */}
+        <div className="absolute inset-0 opacity-30">
+          <img 
+            src="https://i.gifer.com/74H8.gif" 
+            alt="Particle effect" 
+            className="absolute w-full h-full object-cover mix-blend-screen"
+          />
+        </div>
       </div>
       
       <AuthDecorations />
