@@ -1,19 +1,13 @@
+
 import React from 'react';
 import Layout from '@/components/layout/Layout';
 import MetricCard from '@/components/ui/MetricCard';
 import InstanceCard from '@/components/dashboard/InstanceCard';
 import FilterBar from '@/components/dashboard/FilterBar';
-import HostMap from '@/components/charts/HostMap';
-import StatsMultiple from '@/components/charts/StatsMultiple';
-import GpuComparison from '@/components/charts/GpuComparison';
+import AIAssistantPanel from '@/components/ai/AIAssistantPanel';
 import { useInstances } from '@/hooks/useInstances';
-import { useChartData } from '@/hooks/useChartData';
-import { Server, Clock, CreditCard, Database, BarChart, PieChart, LineChart, RefreshCcw } from 'lucide-react';
+import { Server, Clock, CreditCard, Database } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
-import { Badge } from '@/components/ui/badge';
 
 const Index = () => {
   const { 
@@ -27,35 +21,12 @@ const Index = () => {
     filteredCount
   } = useInstances();
   
-  const {
-    hostMapData,
-    statsData,
-    gpuComparisonData,
-    loading: chartsLoading,
-    lastUpdated
-  } = useChartData();
-  
   const handleSearch = (query: string) => {
     updateFilters({ search: query || undefined });
   };
   
   const handleFilterChange = (newFilters: any) => {
     updateFilters(newFilters);
-  };
-  
-  const formatLastUpdated = () => {
-    if (!lastUpdated) return '未更新';
-    
-    const now = new Date();
-    const diffSeconds = Math.floor((now.getTime() - lastUpdated.getTime()) / 1000);
-    
-    if (diffSeconds < 60) {
-      return `${diffSeconds}秒前`;
-    } else if (diffSeconds < 3600) {
-      return `${Math.floor(diffSeconds / 60)}分钟前`;
-    } else {
-      return `${Math.floor(diffSeconds / 3600)}小时前`;
-    }
   };
   
   return (
@@ -99,47 +70,13 @@ const Index = () => {
         <div className="bg-background p-4 rounded-md shadow-sm space-y-3">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-medium flex items-center gap-2">
-              Vast.ai 数据分析
-              {lastUpdated && (
-                <Badge variant="outline" className="ml-2 text-xs">
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse mr-1.5"></div>
-                  实时数据 · {formatLastUpdated()}
-                </Badge>
-              )}
+              AI 智能助手
             </h2>
-            <Button variant="outline" size="sm" asChild className="h-8">
-              <Link to="/charts" className="flex items-center gap-1">
-                <BarChart className="h-4 w-4" />
-                详细图表
-              </Link>
-            </Button>
           </div>
           
-          <Tabs defaultValue="map" className="space-y-4">
-            <TabsList className="bg-muted/20 p-1">
-              <TabsTrigger value="map" className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary">
-                <PieChart className="h-3.5 w-3.5 mr-1.5" />主机地图
-              </TabsTrigger>
-              <TabsTrigger value="stats" className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary">
-                <LineChart className="h-3.5 w-3.5 mr-1.5" />性能统计
-              </TabsTrigger>
-              <TabsTrigger value="comparison" className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary">
-                <BarChart className="h-3.5 w-3.5 mr-1.5" />GPU 对比
-              </TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="map">
-              <HostMap data={hostMapData} loading={chartsLoading} />
-            </TabsContent>
-            
-            <TabsContent value="stats">
-              <StatsMultiple data={statsData} loading={chartsLoading} />
-            </TabsContent>
-            
-            <TabsContent value="comparison">
-              <GpuComparison data={gpuComparisonData} loading={chartsLoading} />
-            </TabsContent>
-          </Tabs>
+          <div className="h-[400px]">
+            <AIAssistantPanel />
+          </div>
         </div>
         
         <div className="bg-background p-4 rounded-md shadow-sm space-y-3">

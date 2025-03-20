@@ -7,7 +7,6 @@ import { useAuth } from '@/hooks/useAuth';
 import AuthLayout from '@/components/auth/AuthLayout';
 import LoginForm from '@/components/auth/LoginForm';
 import RegisterForm from '@/components/auth/RegisterForm';
-import CurrentUser from '@/components/auth/CurrentUser';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -82,14 +81,6 @@ const Login = () => {
     }
   };
 
-  const handleSwitchAccount = () => {
-    logout();
-    toast({
-      title: "已切换账号",
-      description: "请使用新的账号登录",
-    });
-  };
-
   if (!animationCompleted) {
     return <div className="min-h-screen bg-gradient-to-b from-secondary/50 to-background" />; // 简单的加载页面
   }
@@ -99,30 +90,26 @@ const Login = () => {
       title="欢迎使用 算力 AGI租赁"
       description="登录您的账户以继续使用服务"
     >
-      {user ? (
-        <CurrentUser user={user} onSwitchAccount={handleSwitchAccount} />
-      ) : (
-        <Tabs defaultValue="login" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-5 rounded-xl overflow-hidden bg-muted/70 p-1">
-            <TabsTrigger value="login" className="rounded-lg py-2.5">登录</TabsTrigger>
-            <TabsTrigger value="register" className="rounded-lg py-2.5">注册</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="login">
-            <LoginForm 
-              isLoading={isLoading || authLoading}
-              onSubmit={handleLoginSubmit}
-            />
-          </TabsContent>
-          
-          <TabsContent value="register">
-            <RegisterForm 
-              isLoading={isLoading || authLoading}
-              onSubmit={handleRegisterSubmit}
-            />
-          </TabsContent>
-        </Tabs>
-      )}
+      <Tabs defaultValue="login" className="w-full">
+        <TabsList className="grid w-full grid-cols-2 mb-5 rounded-xl overflow-hidden bg-muted/70 p-1">
+          <TabsTrigger value="login" className="rounded-lg py-2.5">登录</TabsTrigger>
+          <TabsTrigger value="register" className="rounded-lg py-2.5">注册</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="login">
+          <LoginForm 
+            isLoading={isLoading || authLoading}
+            onSubmit={handleLoginSubmit}
+          />
+        </TabsContent>
+        
+        <TabsContent value="register">
+          <RegisterForm 
+            isLoading={isLoading || authLoading}
+            onSubmit={handleRegisterSubmit}
+          />
+        </TabsContent>
+      </Tabs>
     </AuthLayout>
   );
 };
