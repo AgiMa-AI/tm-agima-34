@@ -128,12 +128,12 @@ const RegisterForm = ({ isLoading, onSubmit }: RegisterFormProps) => {
         </div>
       </div>
       
-      <div className="flex items-center space-x-2 mt-2">
+      <div className="flex items-start space-x-2 mt-1">
         <Checkbox 
           id="terms"
           checked={agreeTerms}
           onCheckedChange={() => setAgreeTerms(!agreeTerms)}
-          className="h-4 w-4 rounded-sm"
+          className="h-3 w-3 rounded-sm mt-0.5"
         />
         <Label
           htmlFor="terms"

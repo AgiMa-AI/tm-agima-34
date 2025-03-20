@@ -10,12 +10,12 @@ import RegisterForm from '@/components/auth/RegisterForm';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login, register, isLoading: authLoading, user, logout } = useAuth();
+  const { login, register, isLoading: authLoading, user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [animationCompleted, setAnimationCompleted] = useState(false);
 
   useEffect(() => {
-    // 模拟完成初始加载动画
+    // Simulate initial loading animation completion
     const timer = setTimeout(() => {
       setAnimationCompleted(true);
     }, 1000);
@@ -36,7 +36,7 @@ const Login = () => {
   };
 
   const handleRegisterSubmit = async (
-    username: string,
+    username: string, 
     password: string,
     confirmPassword: string,
     userType: 'renter' | 'provider',

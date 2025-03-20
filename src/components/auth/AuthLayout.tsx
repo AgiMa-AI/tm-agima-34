@@ -23,12 +23,12 @@ const AuthLayout = ({ children, title, description }: AuthLayoutProps) => {
           playsInline
         >
           <source 
-            src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-a-city-in-the-style-of-a-34788-large.mp4" 
+            src="https://cdn.pixabay.com/vimeo/695612960/abstract-130883.mp4?width=1280&hash=2eb31f3e9152d1a39e446b4c8e17d0e2ed84acbc" 
             type="video/mp4" 
           />
           Your browser does not support the video tag.
         </video>
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
       </div>
       
       <AuthDecorations />
