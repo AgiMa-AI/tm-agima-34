@@ -1,6 +1,7 @@
 
 import { useContext } from 'react';
 import AuthContext from '@/context/AuthContext';
+import { AuthProvider } from '@/providers/AuthProvider';
 
 // Export a direct implementation of useAuth hook instead of re-exporting
 export const useAuth = () => {
