@@ -12,9 +12,9 @@ import Wallet from '@/pages/Wallet';
 
 function App() {
   return (
-    <AuthProvider>
-      <MobileProvider>
-        <Router>
+    <MobileProvider>
+      <Router>
+        <AuthProvider>
           <Routes>
             <Route path="/" element={<Instances />} />
             <Route path="/details/:id" element={<Details />} />
@@ -27,9 +27,9 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Toaster position="top-right" />
-        </Router>
-      </MobileProvider>
-    </AuthProvider>
+        </AuthProvider>
+      </Router>
+    </MobileProvider>
   );
 }
 
