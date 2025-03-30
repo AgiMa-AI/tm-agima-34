@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -29,13 +28,15 @@ interface FilterBarProps {
   };
   onFilterChange: (filters: any) => void;
   onFilterReset: () => void;
+  className?: string;
 }
 
 const FilterBar = ({
   availableFilters,
   activeFilters,
   onFilterChange,
-  onFilterReset
+  onFilterReset,
+  className
 }: FilterBarProps) => {
   const [priceRange, setPriceRange] = useState<[number, number]>([
     activeFilters.minPrice || availableFilters.priceRange[0],
@@ -94,7 +95,7 @@ const FilterBar = ({
   };
   
   return (
-    <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 bg-white/50 backdrop-blur-sm p-4 rounded-lg border mb-6 animate-scale-in">
+    <div className={`flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 bg-white/50 backdrop-blur-sm p-4 rounded-lg border mb-6 animate-scale-in ${className || ''}`}>
       <div className="flex flex-col md:flex-row md:items-center md:space-x-4">
         <div className="flex items-center space-x-2 text-muted-foreground mb-2 md:mb-0">
           <Filter className="h-4 w-4" />
