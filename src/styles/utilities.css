@@ -23,7 +23,7 @@
     @apply bg-primary/40;
   }
   
-  /* 腾目科技特有的动效 */
+  /* AGI动效 */
   .float-animation {
     animation: float 4s ease-in-out infinite;
   }
@@ -32,28 +32,28 @@
     animation: pulse-soft 2s infinite;
   }
 
-  /* 品牌渐变色 */
-  .brand-gradient {
-    background: linear-gradient(135deg, #00BCC0 0%, #60D3A7 100%);
+  /* AI品牌渐变色 */
+  .ai-gradient {
+    background: linear-gradient(135deg, #8B5CF6 0%, #C084FC 100%);
   }
 
-  .brand-text-gradient {
-    background: linear-gradient(135deg, #00BCC0 0%, #60D3A7 100%);
+  .ai-text-gradient {
+    background: linear-gradient(135deg, #8B5CF6 0%, #C084FC 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   
-  /* 蒂芙尼风格元素 */
-  .tiffany-shadow {
-    box-shadow: 0 4px 20px rgba(0, 188, 190, 0.15);
+  /* AGI风格元素 */
+  .ai-shadow {
+    box-shadow: 0 4px 20px rgba(138, 43, 226, 0.15);
   }
 
-  .tiffany-border {
+  .ai-border {
     @apply border-2 border-primary/30;
   }
 
-  .tiffany-glow {
-    @apply hover:shadow-[0_0_15px_rgba(0,188,190,0.5)] transition-shadow duration-300;
+  .ai-glow {
+    @apply hover:shadow-[0_0_15px_rgba(138,43,226,0.5)] transition-shadow duration-300;
   }
   
   /* 用户界面优化 */
@@ -132,5 +132,29 @@
     width: 40px;
     height: 4px;
     @apply bg-muted rounded-full mx-auto block mt-2;
+  }
+  
+  /* AI specific elements */
+  .ai-card {
+    @apply rounded-xl border border-primary/10 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-300;
+  }
+  
+  .ai-button {
+    @apply rounded-lg bg-primary/90 text-white hover:bg-primary transition-colors duration-200 font-medium;
+  }
+  
+  .neural-pattern {
+    background-image: radial-gradient(circle at 1px 1px, rgba(138, 43, 226, 0.1) 1px, transparent 0);
+    background-size: 20px 20px;
+  }
+  
+  .ai-chip {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-medium bg-primary/10 text-primary;
+  }
+  
+  .neuron-border {
+    border-image: linear-gradient(to right, #8B5CF6, #C084FC) 1;
+    border-width: 2px;
+    border-style: solid;
   }
 }

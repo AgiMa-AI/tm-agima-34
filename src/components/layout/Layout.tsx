@@ -5,7 +5,7 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Brain } from 'lucide-react';
 import { useMobile } from '@/hooks/use-mobile';
 import MobileLayoutReset from './MobileLayoutReset';
 
@@ -46,7 +46,7 @@ const Layout = ({
   };
 
   return (
-    <div className="flex h-full flex-col bg-background">
+    <div className="flex h-full flex-col bg-background neural-pattern">
       {!hideHeader && <Header onSearch={searchHandler} />}
       <div className="flex flex-1 overflow-hidden">
         {!hideSidebar && (
@@ -67,10 +67,10 @@ const Layout = ({
             )} />
             {/* Mobile toggle buttons */}
             <Button 
-              variant="outline" 
+              variant="ai" 
               size="icon" 
               className={cn(
-                "fixed bottom-4 left-4 z-50 rounded-full shadow-md lg:hidden transition-opacity duration-300 h-14 w-14 tiffany-shadow",
+                "fixed bottom-4 left-4 z-50 rounded-full shadow-md lg:hidden transition-opacity duration-300 h-14 w-14 ai-shadow",
                 !sidebarCollapsed && "opacity-0 pointer-events-none"
               )}
               onClick={toggleSidebar}
@@ -93,7 +93,8 @@ const Layout = ({
         )}
         <main className={cn(
           "flex-1 overflow-y-auto transition-all duration-300 ease-in-out",
-          !hideSidebar && !sidebarCollapsed && !isMobile ? 'lg:ml-[240px]' : 'ml-0'
+          !hideSidebar && !sidebarCollapsed && !isMobile ? 'lg:ml-[240px]' : 'ml-0',
+          "bg-gradient-to-br from-background to-secondary/20"
         )}>
           <div className={cn(
             "container mx-auto py-4 sm:py-6 px-3 sm:px-4 md:px-6 animate-fade-in",

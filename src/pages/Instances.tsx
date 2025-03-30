@@ -78,26 +78,35 @@ const Instances = () => {
   
   return (
     <Layout searchHandler={handleSearch}>
-      <InstancesHeader totalCount={totalCount} filteredCount={filteredCount} />
-      
-      <FilterBar
-        availableFilters={filterOptions}
-        activeFilters={filters}
-        onFilterChange={handleFilterChange}
-        onFilterReset={resetFilters}
-      />
-      
-      {loading ? (
-        <InstancesSkeletonLoader />
-      ) : instances.length > 0 ? (
-        <InstancesGrid 
-          instances={instances} 
-          mobileLayout={mobileLayout} 
-          onRent={handleRentInstance} 
-        />
-      ) : (
-        <EmptyStateDisplay />
-      )}
+      <div className="space-y-6">
+        <div className="bg-white/50 backdrop-blur-sm p-6 rounded-xl ai-shadow border border-primary/10">
+          <InstancesHeader totalCount={totalCount} filteredCount={filteredCount} />
+        
+          <div className="mt-6">
+            <FilterBar
+              availableFilters={filterOptions}
+              activeFilters={filters}
+              onFilterChange={handleFilterChange}
+              onFilterReset={resetFilters}
+              className="bg-white/80 border border-primary/5 rounded-lg p-4"
+            />
+          </div>
+        </div>
+        
+        <div className="mt-6">
+          {loading ? (
+            <InstancesSkeletonLoader />
+          ) : instances.length > 0 ? (
+            <InstancesGrid 
+              instances={instances} 
+              mobileLayout={mobileLayout} 
+              onRent={handleRentInstance} 
+            />
+          ) : (
+            <EmptyStateDisplay />
+          )}
+        </div>
+      </div>
 
       {/* Dialogs */}
       <RentDialog 

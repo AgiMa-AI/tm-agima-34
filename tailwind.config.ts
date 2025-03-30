@@ -105,6 +105,10 @@ export default {
 				'float': {
 					'0%, 100%': { transform: 'translateY(0)' },
 					'50%': { transform: 'translateY(-5px)' }
+				},
+				'pulse-soft': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.7' }
 				}
 			},
 			animation: {
@@ -114,7 +118,8 @@ export default {
 				'fade-out': 'fade-out 0.2s ease-out',
 				'slide-in': 'slide-in 0.4s ease-out',
 				'scale-in': 'scale-in 0.2s ease-out',
-				'float': 'float 5s infinite ease-in-out'
+				'float': 'float 5s infinite ease-in-out',
+				'pulse-soft': 'pulse-soft 2s infinite'
 			},
 			transitionProperty: {
 				'height': 'height',
