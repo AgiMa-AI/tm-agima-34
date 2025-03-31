@@ -9,6 +9,7 @@ import Terms from '@/pages/Terms';
 import Privacy from '@/pages/Privacy';
 import NotFound from '@/pages/NotFound';
 import Wallet from '@/pages/Wallet';
+import Login from '@/pages/auth/Login';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/wallet" element={<Wallet />} />
+            <Route path="/login" element={<Login />} />
             
             {/* Error Routes */}
             <Route path="/404" element={<NotFound />} />
