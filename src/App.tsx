@@ -24,6 +24,8 @@ import AGIHosting from '@/pages/AGIHosting';
 import AGILeasing from '@/pages/AGILeasing';
 import MobileComputing from '@/pages/MobileComputing';
 import ServiceDistribution from '@/pages/ServiceDistribution';
+import ForgotPassword from '@/pages/auth/ForgotPassword';
+import AdminUsers from '@/pages/admin/AdminUsers';
 
 // Consulting pages
 import ConsultingStrategy from '@/pages/ai-consulting/Strategy';
@@ -66,6 +68,7 @@ function App() {
             {/* Auth Routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
             
             {/* Dashboard Routes */}
             <Route path="/charts" element={<Charts />} />
@@ -108,6 +111,14 @@ function App() {
             <Route path="/ai-performance/benchmarks" element={<PerformanceBenchmarks />} />
             <Route path="/ai-performance/security" element={<PerformanceSecurity />} />
             <Route path="/ai-performance/contact" element={<PerformanceContact />} />
+            
+            {/* User Management Routes */}
+            <Route path="/users" element={<AdminUsers />} />
+            <Route path="/settings" element={<AdminUsers />} />
+            <Route path="/tasks" element={<AdminUsers />} />
+            <Route path="/invitation" element={<AdminUsers />} />
+            <Route path="/storage" element={<AdminUsers />} />
+            <Route path="/mobile-app" element={<AdminUsers />} />
             
             {/* Error Routes */}
             <Route path="/404" element={<NotFound />} />

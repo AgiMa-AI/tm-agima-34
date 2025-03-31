@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bell, LogOut, Search, Settings, User, Brain, Bot } from 'lucide-react';
@@ -86,9 +87,9 @@ const Header = ({ onSearch }: HeaderProps) => {
               <DropdownMenuContent align="end" className="w-56 border-primary/20 ai-shadow">
                 <DropdownMenuLabel>我的账户</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('/users')}>
                   <User className="mr-2 h-4 w-4 text-primary" />
-                  <span>个人资料</span>
+                  <span>用户管理</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => navigate('/wallet')}>
                   <span>钱包管理</span>
