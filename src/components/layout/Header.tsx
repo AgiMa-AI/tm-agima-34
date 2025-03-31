@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bell, LogOut, Search, Settings, User, Brain, Bot } from 'lucide-react';
@@ -91,8 +90,8 @@ const Header = ({ onSearch }: HeaderProps) => {
                   <User className="mr-2 h-4 w-4 text-primary" />
                   <span>个人资料</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate('/billing')}>
-                  <span>账单管理</span>
+                <DropdownMenuItem onClick={() => navigate('/wallet')}>
+                  <span>钱包管理</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => navigate('/settings')}>
                   <Settings className="mr-2 h-4 w-4 text-primary" />

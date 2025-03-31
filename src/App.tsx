@@ -18,6 +18,7 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route path="/" element={<Instances />} />
+            <Route path="/instances" element={<Instances />} />
             <Route path="/details/:id" element={<Details />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
