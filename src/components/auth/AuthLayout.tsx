@@ -13,7 +13,7 @@ interface AuthLayoutProps {
 
 const AuthLayout = ({ children, title, description }: AuthLayoutProps) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/10 flex flex-col items-center justify-center p-4 sm:p-6 overflow-hidden neural-pattern">
+    <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-purple-100/20 flex flex-col items-center justify-center p-4 sm:p-6 overflow-hidden neural-pattern">
       <AuthDecorations />
       
       <div className="w-full max-w-[340px] xs:max-w-md transition-all duration-700 opacity-100 translate-y-0">
@@ -29,10 +29,10 @@ const AuthLayout = ({ children, title, description }: AuthLayoutProps) => {
           
           <div className="max-w-xs mx-auto mt-4 sm:mt-6 p-3 rounded-xl bg-primary/5 backdrop-blur-sm">
             <p className="text-xs sm:text-sm text-foreground/90 italic">
-              "人工智能的未来由我们共同创造"
+              "所有伟大的创新，都是对现状"不合理"的拆解"
             </p>
             <p className="text-xs text-foreground/60 mt-1">
-              The future of AI is created by us together
+              All great innovations are a deconstruction of the "unreasonable" status quo
             </p>
           </div>
         </div>
