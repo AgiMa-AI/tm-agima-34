@@ -65,54 +65,56 @@ function App() {
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/wallet" element={<Wallet />} />
             
-            {/* Auth Routes */}
+            {/* 认证路由 */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             
-            {/* Dashboard Routes */}
+            {/* 仪表盘路由 */}
             <Route path="/charts" element={<Charts />} />
             <Route path="/earnings" element={<Earnings />} />
             <Route path="/billing" element={<Billing />} />
             
-            {/* AI Services Routes */}
+            {/* AGI服务路由 */}
             <Route path="/agi-models" element={<AGIModels />} />
             <Route path="/agi-hosting" element={<AGIHosting />} />
             <Route path="/agi-leasing" element={<AGILeasing />} />
             <Route path="/service-distribution" element={<ServiceDistribution />} />
             <Route path="/mobile-computing" element={<MobileComputing />} />
             
-            {/* AI Customization Routes */}
+            {/* AI定制化路由 */}
             <Route path="/ai-customization" element={<AICustomization />} />
             <Route path="/ai-customization/enterprise-ai" element={<EnterpriseAI />} />
             <Route path="/ai-customization/contact" element={<ContactConsultation />} />
             
-            {/* AI Commercial Routes */}
+            {/* AI商业化路由 */}
             <Route path="/ai-commercial" element={<AICommercial />} />
             <Route path="/ai-commercial/enterprise-ai" element={<CommercialEnterpriseAI />} />
             <Route path="/ai-commercial/contact" element={<CommercialContact />} />
             
-            {/* AI Consulting Routes */}
+            {/* AI咨询服务路由 */}
             <Route path="/ai-consulting" element={<AIConsulting />} />
             <Route path="/ai-consulting/strategy" element={<ConsultingStrategy />} />
             <Route path="/ai-consulting/implementation" element={<ConsultingImplementation />} />
             <Route path="/ai-consulting/training" element={<ConsultingTraining />} />
             <Route path="/ai-consulting/contact" element={<ConsultingContact />} />
             
-            {/* AI Solutions Routes */}
+            {/* AI解决方案路由 */}
             <Route path="/ai-solutions" element={<AISolutions />} />
             <Route path="/ai-solutions/finance" element={<FinanceSolution />} />
             <Route path="/ai-solutions/medical" element={<MedicalSolution />} />
             <Route path="/ai-solutions/manufacturing" element={<ManufacturingSolution />} />
             <Route path="/ai-solutions/contact" element={<SolutionsContact />} />
+            <Route path="/ai-solutions/retail" element={<FinanceSolution />} /> {/* 添加零售行业解决方案路由 */}
             
-            {/* AI Performance Routes */}
+            {/* AI性能路由 */}
             <Route path="/ai-performance" element={<AIPerformance />} />
             <Route path="/ai-performance/benchmarks" element={<PerformanceBenchmarks />} />
             <Route path="/ai-performance/security" element={<PerformanceSecurity />} />
             <Route path="/ai-performance/contact" element={<PerformanceContact />} />
             
-            {/* User Management Routes */}
+            {/* 用户管理路由 */}
+            <Route path="/admin/users" element={<AdminUsers />} />
             <Route path="/users" element={<AdminUsers />} />
             <Route path="/settings" element={<AdminUsers />} />
             <Route path="/tasks" element={<AdminUsers />} />
@@ -120,7 +122,7 @@ function App() {
             <Route path="/storage" element={<AdminUsers />} />
             <Route path="/mobile-app" element={<AdminUsers />} />
             
-            {/* Error Routes */}
+            {/* 错误路由 */}
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

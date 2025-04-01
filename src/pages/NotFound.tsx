@@ -23,12 +23,12 @@ const NotFound = () => {
     navigate("/");
   };
 
-  // Function to get a friendly suggestion for similar routes
+  // 获取相似路由的友好建议
   const getSuggestion = (path: string) => {
-    // Strip leading slash and get first segment
+    // 去除前导斜杠并获取第一段
     const segment = path.replace(/^\//, '').split('/')[0];
     
-    // Common misspellings or partial matches
+    // 常见拼写错误或部分匹配
     const commonRoutes: Record<string, string> = {
       'user': '/users',
       'instance': '/instances',
@@ -48,12 +48,44 @@ const NotFound = () => {
       'distribution': '/service-distribution',
       'hosting': '/agi-hosting',
       'leasing': '/agi-leasing',
+      // 添加新的路由匹配
+      'admin': '/users',
+      'finance': '/ai-solutions/finance',
+      'medical': '/ai-solutions/medical',
+      'manufacturing': '/ai-solutions/manufacturing',
+      'retail': '/ai-solutions/retail',
+      'security': '/ai-performance/security',
+      'benchmark': '/ai-performance/benchmarks',
+      'strategy': '/ai-consulting/strategy',
+      'implementation': '/ai-consulting/implementation',
+      'training': '/ai-consulting/training',
+      'enterprise': '/ai-customization/enterprise-ai',
+      'contact': '/ai-solutions/contact',
     };
     
-    // Check for partial matches
+    // 检查完整路径匹配
+    if (path.includes('ai-solutions') && path.includes('retail')) {
+      return '/ai-solutions/retail';
+    }
+    
+    // 检查部分匹配
     for (const [key, value] of Object.entries(commonRoutes)) {
       if (segment.includes(key)) {
         return value;
+      }
+    }
+    
+    // 检查特定的嵌套路由
+    const nestedPaths = path.split('/');
+    if (nestedPaths.length > 1) {
+      const secondSegment = nestedPaths[1];
+      if (secondSegment === 'admin' && nestedPaths[2]) {
+        return `/admin/${nestedPaths[2]}`;
+      }
+      
+      // 为ai-solutions等添加特殊处理
+      if (secondSegment === 'ai-solutions' && nestedPaths[2]) {
+        return `/ai-solutions/${nestedPaths[2]}`;
       }
     }
     
