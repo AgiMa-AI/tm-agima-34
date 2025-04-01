@@ -10,7 +10,7 @@ const NotFound = () => {
 
   useEffect(() => {
     console.error(
-      "404 Error: User attempted to access non-existent route:",
+      "404 错误: 用户尝试访问不存在的路径:",
       location.pathname
     );
   }, [location.pathname]);
