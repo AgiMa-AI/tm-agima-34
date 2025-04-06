@@ -25,7 +25,14 @@ import AGILeasing from '@/pages/AGILeasing';
 import MobileComputing from '@/pages/MobileComputing';
 import ServiceDistribution from '@/pages/ServiceDistribution';
 import ForgotPassword from '@/pages/auth/ForgotPassword';
+
+// Admin pages
+import AdminLayout from '@/pages/admin/AdminLayout';
+import AdminDashboard from '@/pages/admin/AdminDashboard';
 import AdminUsers from '@/pages/admin/AdminUsers';
+import AdminInstances from '@/pages/admin/AdminInstances';
+import AdminSettings from '@/pages/admin/AdminSettings';
+import AdminApiConfig from '@/pages/admin/ApiConfig';
 
 // Consulting pages
 import ConsultingStrategy from '@/pages/ai-consulting/Strategy';
@@ -38,6 +45,7 @@ import FinanceSolution from '@/pages/ai-solutions/FinanceSolution';
 import MedicalSolution from '@/pages/ai-solutions/MedicalSolution';
 import ManufacturingSolution from '@/pages/ai-solutions/ManufacturingSolution';
 import SolutionsContact from '@/pages/ai-solutions/ContactPage';
+import RetailSolution from '@/pages/ai-solutions/RetailSolution';
 
 // Performance pages
 import PerformanceBenchmarks from '@/pages/ai-performance/Benchmarks';
@@ -105,7 +113,7 @@ function App() {
             <Route path="/ai-solutions/medical" element={<MedicalSolution />} />
             <Route path="/ai-solutions/manufacturing" element={<ManufacturingSolution />} />
             <Route path="/ai-solutions/contact" element={<SolutionsContact />} />
-            <Route path="/ai-solutions/retail" element={<FinanceSolution />} /> {/* 添加零售行业解决方案路由 */}
+            <Route path="/ai-solutions/retail" element={<RetailSolution />} />
             
             {/* AI性能路由 */}
             <Route path="/ai-performance" element={<AIPerformance />} />
@@ -113,10 +121,19 @@ function App() {
             <Route path="/ai-performance/security" element={<PerformanceSecurity />} />
             <Route path="/ai-performance/contact" element={<PerformanceContact />} />
             
-            {/* 用户管理路由 */}
-            <Route path="/admin/users" element={<AdminUsers />} />
+            {/* 管理员路由 - 使用嵌套路由和布局 */}
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<AdminDashboard />} />
+              <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="users" element={<AdminUsers />} />
+              <Route path="instances" element={<AdminInstances />} />
+              <Route path="settings" element={<AdminSettings />} />
+              <Route path="api-config" element={<AdminApiConfig />} />
+            </Route>
+            
+            {/* 旧管理路由的重定向 - 保持向后兼容 */}
             <Route path="/users" element={<AdminUsers />} />
-            <Route path="/settings" element={<AdminUsers />} />
+            <Route path="/settings" element={<AdminSettings />} />
             <Route path="/tasks" element={<AdminUsers />} />
             <Route path="/invitation" element={<AdminUsers />} />
             <Route path="/storage" element={<AdminUsers />} />
