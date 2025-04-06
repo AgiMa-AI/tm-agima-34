@@ -12,7 +12,7 @@ import {
   Shield, Truck, Zap, Radio, DollarSign, Leaf, Hotel, Plane,
   Wrench, Music, CloudRain, Atom, Clipboard, LogIn, Headphones, 
   Lightbulb, Tv, Utensils, BookOpen, Map, Warehouse, Users, Baby,
-  Camera, Car, Satellite, Flask, MousePointer, Sun
+  Camera, Car, Satellite, MousePointer, Sun, TestTube
 } from 'lucide-react';
 
 interface EnterpriseClient {
@@ -354,6 +354,8 @@ const getIndustryIcon = (industry: string) => {
       return <DollarSign className="h-4 w-4" />;
     case '物理研究':
       return <Atom className="h-4 w-4" />;
+    case '化学研究':
+      return <TestTube className="h-4 w-4" />;
     default:
       return <BrainCircuit className="h-4 w-4" />;
   }
