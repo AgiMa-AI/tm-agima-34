@@ -3,6 +3,8 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { PlusCircle, CreditCard, Wallet, History } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 interface ActionButtonProps {
   icon: React.ReactNode;
@@ -36,14 +38,20 @@ const ActionButton = ({ icon, label, href, onClick, variant = "outline" }: Actio
 };
 
 const WalletActionButtons = () => {
+  const navigate = useNavigate();
+
   const handleRecharge = () => {
     console.log("Recharge clicked");
-    // 在此处理充值逻辑，或者跳转到充值页面
+    // Navigate to recharge page or show recharge dialog
+    navigate("/wallet/recharge");
   };
 
   const handleWithdraw = () => {
     console.log("Withdraw clicked");
-    // 在此处理提现逻辑，或者跳转到提现页面
+    // Navigate to withdrawal page or show withdrawal dialog
+    navigate("/wallet/withdraw");
+    // You can also show a toast message
+    toast.success("正在前往提现页面");
   };
 
   return (

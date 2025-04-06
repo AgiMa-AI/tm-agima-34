@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,7 +10,9 @@ import {
   Smartphone, Factory, ShoppingBag, BrainCircuit, Activity, FileSearch, 
   Microscope, LandPlot, HeartPulse, GraduationCap, BarChart, 
   Shield, Truck, Zap, Radio, DollarSign, Leaf, Hotel, Plane,
-  Wrench, Music, CloudRain, Atom
+  Wrench, Music, CloudRain, Atom, Clipboard, LogIn, Headphones, 
+  Lightbulb, Tv, Utensils, BookOpen, Map, Warehouse, Users, Baby,
+  Camera, Car, Satellite, Flask, MousePointer, Sun
 } from 'lucide-react';
 
 interface EnterpriseClient {
@@ -140,7 +141,7 @@ const mockEnterpriseClients: EnterpriseClient[] = [
     id: 'transportai-10',
     name: '运智科技',
     logo: '/logos/transportai.svg',
-    industry: '物流运输',
+    industry: '物流运��',
     location: '重庆',
     country: '中国',
     usageType: ['路线优化', '车队管理'],
@@ -173,6 +174,141 @@ const mockEnterpriseClients: EnterpriseClient[] = [
     firstDeployed: '2024-07'
   }
 ];
+
+interface Industry {
+  id: string;
+  name: string;
+  icon: React.ReactNode;
+  subIndustries?: string[];
+}
+
+const industryCategories: Industry[] = [
+  {
+    id: 'all',
+    name: '全部',
+    icon: <Globe className="h-4 w-4" />,
+  },
+  {
+    id: 'finance',
+    name: '金融',
+    icon: <BarChart className="h-4 w-4" />,
+    subIndustries: ['金融科技', '银行', '保险', '投资', '证券']
+  },
+  {
+    id: 'tech',
+    name: '科技',
+    icon: <Cpu className="h-4 w-4" />,
+    subIndustries: ['电信', '软件开发', '硬件制造', '云计算', 'IT服务']
+  },
+  {
+    id: 'healthcare',
+    name: '医疗',
+    icon: <HeartPulse className="h-4 w-4" />,
+    subIndustries: ['医疗健康', '生物技术', '医药研发', '医疗器械', '健康管理']
+  },
+  {
+    id: 'education',
+    name: '教育',
+    icon: <GraduationCap className="h-4 w-4" />,
+    subIndustries: ['教育科技', '高等教育', '职业培训', '在线教育', 'K12教育']
+  },
+  {
+    id: 'retail',
+    name: '零售',
+    icon: <ShoppingBag className="h-4 w-4" />,
+    subIndustries: ['零售', '电子商务', '超市', '奢侈品', '消费品']
+  },
+  {
+    id: 'manufacturing',
+    name: '制造',
+    icon: <Factory className="h-4 w-4" />,
+    subIndustries: ['制造业', '汽车制造', '电子制造', '重工业', '轻工业']
+  },
+  {
+    id: 'agriculture',
+    name: '农业',
+    icon: <LandPlot className="h-4 w-4" />,
+    subIndustries: ['农业', '智慧农业', '食品加工', '农产品', '养殖业']
+  },
+  {
+    id: 'energy',
+    name: '能源',
+    icon: <Zap className="h-4 w-4" />,
+    subIndustries: ['能源', '新能源', '石油天然气', '电力', '矿业']
+  },
+  {
+    id: 'transportation',
+    name: '交通',
+    icon: <Truck className="h-4 w-4" />,
+    subIndustries: ['物流运输', '航空', '铁路', '航运', '城市交通']
+  },
+  {
+    id: 'research',
+    name: '科研',
+    icon: <Microscope className="h-4 w-4" />,
+    subIndustries: ['科研', '物理研究', '化学研究', '材料科学', '环境科学']
+  },
+  {
+    id: 'government',
+    name: '政府',
+    icon: <Building className="h-4 w-4" />,
+    subIndustries: ['政府', '公共服务', '城市管理', '国防', '司法']
+  },
+  {
+    id: 'media',
+    name: '媒体',
+    icon: <Tv className="h-4 w-4" />,
+    subIndustries: ['媒体娱乐', '广播电视', '数字媒体', '出版', '游戏']
+  },
+  {
+    id: 'telecom',
+    name: '通信',
+    icon: <Radio className="h-4 w-4" />,
+    subIndustries: ['通信', '移动通信', '网络服务', '互联网', '5G技术']
+  },
+  {
+    id: 'environment',
+    name: '环保',
+    icon: <Leaf className="h-4 w-4" />,
+    subIndustries: ['环保', '可持续发展', '清洁能源', '废物处理', '环境监测']
+  },
+  {
+    id: 'hospitality',
+    name: '酒店',
+    icon: <Hotel className="h-4 w-4" />,
+    subIndustries: ['酒店餐饮', '旅游度假', '餐饮服务', '休闲娱乐', '会展']
+  },
+  {
+    id: 'construction',
+    name: '建筑',
+    icon: <Wrench className="h-4 w-4" />,
+    subIndustries: ['建筑', '房地产', '基础设施', '建材', '工程服务']
+  },
+  {
+    id: 'security',
+    name: '安全',
+    icon: <Shield className="h-4 w-4" />,
+    subIndustries: ['网络安全', '物理安全', '安防设备', '信息安全', '身份认证']
+  },
+  {
+    id: 'logistics',
+    name: '物流',
+    icon: <Warehouse className="h-4 w-4" />,
+    subIndustries: ['仓储物流', '供应链', '快递服务', '冷链物流', '跨境物流']
+  },
+  {
+    id: 'ai',
+    name: '人工智能',
+    icon: <BrainCircuit className="h-4 w-4" />,
+    subIndustries: ['AI服务', '机器学习', '自然语言处理', '计算机视觉', '智能机器人']
+  }
+];
+
+const allIndustries = ['全部'].concat(
+  industryCategories.flatMap(category => 
+    category.subIndustries ? category.subIndustries : [category.name]
+  ).filter((value, index, self) => self.indexOf(value) === index)
+);
 
 const getIndustryIcon = (industry: string) => {
   switch (industry) {
@@ -240,38 +376,40 @@ const getDeploymentBadge = (type: string) => {
 
 const ServiceDistribution = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [industryFilter, setIndustryFilter] = useState<string | null>(null);
+  const [displayedIndustries, setDisplayedIndustries] = useState<string[]>(allIndustries);
   
-  // 扩展行业列表，包含更多子版块
-  const industries = [
-    '全部',
-    '金融科技',
-    '电信',
-    '医疗健康',
-    '教育科技',
-    '零售',
-    '制造业',
-    '农业',
-    '网络安全',
-    '政府',
-    '物流运输',
-    '科研',
-    '能源',
-    '旅游',
-    '媒体娱乐',
-    '环保',
-    '酒店餐饮',
-    '建筑',
-    '气象',
-    '通信',
-    '金融服务',
-    '物理研究'
-  ];
+  useEffect(() => {
+    if (!activeCategory || activeCategory === 'all') {
+      setDisplayedIndustries(allIndustries);
+    } else {
+      const category = industryCategories.find(cat => cat.id === activeCategory);
+      if (category && category.subIndustries) {
+        setDisplayedIndustries(['全部', ...category.subIndustries]);
+      } else {
+        setDisplayedIndustries(allIndustries);
+      }
+    }
+    
+    setIndustryFilter('全部');
+  }, [activeCategory]);
   
   const filteredClients = mockEnterpriseClients.filter(client => {
     const matchesSearch = client.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           client.industry.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesIndustry = industryFilter && industryFilter !== '全部' ? client.industry === industryFilter : true;
+    
+    let matchesIndustry = true;
+    
+    if (industryFilter && industryFilter !== '全部') {
+      matchesIndustry = client.industry === industryFilter;
+    } else if (activeCategory && activeCategory !== 'all') {
+      const category = industryCategories.find(cat => cat.id === activeCategory);
+      if (category && category.subIndustries) {
+        matchesIndustry = category.subIndustries.includes(client.industry);
+      }
+    }
+    
     return matchesSearch && matchesIndustry;
   });
 
@@ -326,25 +464,34 @@ const ServiceDistribution = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <div className="flex flex-wrap gap-2 max-w-full overflow-x-auto pb-2">
-            <Button 
-              variant={industryFilter === null || industryFilter === '全部' ? "secondary" : "outline"} 
-              size="sm"
-              onClick={() => setIndustryFilter('全部')}
-            >
-              全部
-            </Button>
-            {industries.filter(i => i !== '全部').map(industry => (
+          
+          <div className="flex flex-wrap gap-2 max-w-full overflow-x-auto pb-2 w-full">
+            {industryCategories.map((category) => (
               <Button 
-                key={industry}
-                variant={industryFilter === industry ? "secondary" : "outline"} 
+                key={category.id}
+                variant={activeCategory === category.id ? "secondary" : "outline"} 
                 size="sm"
-                onClick={() => setIndustryFilter(industry)}
+                onClick={() => setActiveCategory(category.id)}
+                className="flex items-center gap-1"
               >
-                {industry}
+                {category.icon}
+                <span>{category.name}</span>
               </Button>
             ))}
           </div>
+        </div>
+        
+        <div className="flex flex-wrap gap-2 max-w-full overflow-x-auto pb-4 mb-4 border-b">
+          {displayedIndustries.map((industry) => (
+            <Button 
+              key={industry}
+              variant={industryFilter === industry ? "secondary" : "outline"} 
+              size="sm"
+              onClick={() => setIndustryFilter(industry)}
+            >
+              {industry}
+            </Button>
+          ))}
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
