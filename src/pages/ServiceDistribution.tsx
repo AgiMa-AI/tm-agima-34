@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
@@ -9,7 +10,8 @@ import {
   Globe, Cpu, Wifi, Server, Building, ChevronRight, Network, 
   Smartphone, Factory, ShoppingBag, BrainCircuit, Activity, FileSearch, 
   Microscope, LandPlot, HeartPulse, GraduationCap, BarChart, 
-  Shield, Truck, Zap
+  Shield, Truck, Zap, Radio, DollarSign, Leaf, Hotel, Plane,
+  Wrench, Music, CloudRain, Atom
 } from 'lucide-react';
 
 interface EnterpriseClient {
@@ -198,6 +200,24 @@ const getIndustryIcon = (industry: string) => {
       return <Microscope className="h-4 w-4" />;
     case '能源':
       return <Zap className="h-4 w-4" />;
+    case '旅游':
+      return <Plane className="h-4 w-4" />;
+    case '媒体娱乐':
+      return <Music className="h-4 w-4" />;
+    case '环保':
+      return <Leaf className="h-4 w-4" />;
+    case '酒店餐饮':
+      return <Hotel className="h-4 w-4" />;
+    case '建筑':
+      return <Wrench className="h-4 w-4" />;
+    case '气象':
+      return <CloudRain className="h-4 w-4" />;
+    case '通信':
+      return <Radio className="h-4 w-4" />;
+    case '金融服务':
+      return <DollarSign className="h-4 w-4" />;
+    case '物理研究':
+      return <Atom className="h-4 w-4" />;
     default:
       return <BrainCircuit className="h-4 w-4" />;
   }
@@ -222,12 +242,36 @@ const ServiceDistribution = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [industryFilter, setIndustryFilter] = useState<string | null>(null);
   
-  const industries = [...new Set(mockEnterpriseClients.map(client => client.industry))];
+  // 扩展行业列表，包含更多子版块
+  const industries = [
+    '全部',
+    '金融科技',
+    '电信',
+    '医疗健康',
+    '教育科技',
+    '零售',
+    '制造业',
+    '农业',
+    '网络安全',
+    '政府',
+    '物流运输',
+    '科研',
+    '能源',
+    '旅游',
+    '媒体娱乐',
+    '环保',
+    '酒店餐饮',
+    '建筑',
+    '气象',
+    '通信',
+    '金融服务',
+    '物理研究'
+  ];
   
   const filteredClients = mockEnterpriseClients.filter(client => {
     const matchesSearch = client.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                         client.industry.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesIndustry = industryFilter ? client.industry === industryFilter : true;
+                          client.industry.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesIndustry = industryFilter && industryFilter !== '全部' ? client.industry === industryFilter : true;
     return matchesSearch && matchesIndustry;
   });
 
@@ -282,15 +326,15 @@ const ServiceDistribution = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 max-w-full overflow-x-auto pb-2">
             <Button 
-              variant={industryFilter === null ? "secondary" : "outline"} 
+              variant={industryFilter === null || industryFilter === '全部' ? "secondary" : "outline"} 
               size="sm"
-              onClick={() => setIndustryFilter(null)}
+              onClick={() => setIndustryFilter('全部')}
             >
               全部
             </Button>
-            {industries.map(industry => (
+            {industries.filter(i => i !== '全部').map(industry => (
               <Button 
                 key={industry}
                 variant={industryFilter === industry ? "secondary" : "outline"} 
