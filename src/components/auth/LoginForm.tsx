@@ -20,6 +20,7 @@ const LoginForm = ({ isLoading, onSubmit }: LoginFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Login attempt with:', { username: formData.username, passwordLength: formData.password.length });
     await onSubmit(formData.username, formData.password);
   };
 

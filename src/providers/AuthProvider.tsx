@@ -34,8 +34,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await new Promise(resolve => setTimeout(resolve, 800));
     
     try {
+      // 修改登录逻辑，使用不区分大小写的用户名匹配
       const foundUser = mockUsers.find(
-        u => (u.username === username || u.email === username) && u.password === password
+        u => (u.username.toLowerCase() === username.toLowerCase() || u.email.toLowerCase() === username.toLowerCase()) && u.password === password
       );
       
       if (foundUser) {
@@ -228,4 +229,3 @@ export const withAuth = (Component: React.ComponentType) => {
     );
   };
 };
-
