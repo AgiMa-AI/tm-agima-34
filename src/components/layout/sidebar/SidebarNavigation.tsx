@@ -15,7 +15,7 @@ import {
   Brain,
   Cpu,
   Server,
-  Smartphone, // Changed MobileIcon to Smartphone
+  Smartphone,
   Share2,
   Bot,
   LineChart,
@@ -93,7 +93,7 @@ const SidebarNavigation = ({ collapsed }: SidebarNavigationProps) => {
           collapsed={collapsed}
           href="/mobile-computing"
           label="移动计算"
-          icon={Smartphone} // Changed MobileIcon to Smartphone
+          icon={Smartphone}
         />
         <NavItem
           collapsed={collapsed}

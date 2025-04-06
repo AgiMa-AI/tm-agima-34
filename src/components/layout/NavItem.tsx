@@ -3,27 +3,27 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { LucideIcon } from 'lucide-react';
 
 interface NavItemProps {
-  icon: React.ReactNode;
-  title: string;
+  icon: LucideIcon;
+  label: string;
   href: string;
-  isActive?: boolean;
+  collapsed?: boolean;
 }
 
-const NavItem = ({ icon, title, href, isActive }: NavItemProps) => {
+const NavItem = ({ icon: Icon, label, href, collapsed }: NavItemProps) => {
   return (
     <Link to={href}>
       <Button
-        variant={isActive ? 'secondary' : 'ghost'}
+        variant="ghost"
         size="sm"
         className={cn(
           'w-full justify-start gap-2 mb-1',
-          isActive ? 'bg-secondary font-medium' : 'font-normal'
         )}
       >
-        {icon}
-        <span>{title}</span>
+        <Icon className="h-4 w-4" />
+        {!collapsed && <span>{label}</span>}
       </Button>
     </Link>
   );
