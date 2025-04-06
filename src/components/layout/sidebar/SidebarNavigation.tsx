@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { NavItem } from '../NavItem';
-import { NavSection } from '../NavSection';
+import NavItem from '../NavItem';
+import NavSection from '../NavSection';
 import { useAuth } from '@/hooks/useAuth';
 import {
   BarChart2,
@@ -15,7 +15,7 @@ import {
   Brain,
   Cpu,
   Server,
-  MobileIcon,
+  Smartphone, // Changed MobileIcon to Smartphone
   Share2,
   Bot,
   LineChart,
@@ -93,7 +93,7 @@ const SidebarNavigation = ({ collapsed }: SidebarNavigationProps) => {
           collapsed={collapsed}
           href="/mobile-computing"
           label="移动计算"
-          icon={MobileIcon}
+          icon={Smartphone} // Changed MobileIcon to Smartphone
         />
         <NavItem
           collapsed={collapsed}
