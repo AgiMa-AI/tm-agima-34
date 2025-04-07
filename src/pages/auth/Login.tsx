@@ -10,7 +10,7 @@ import RegisterForm from '@/components/auth/RegisterForm';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login, register, isLoading: authLoading, user, logout } = useAuth();
+  const { login, register, isLoading: authLoading, user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [animationCompleted, setAnimationCompleted] = useState(false);
 
@@ -64,13 +64,16 @@ const Login = () => {
     setIsLoading(true);
     
     try {
-      const success = await register(
-        username, 
-        `${username}@agima.io`, // 使用用户名作为邮箱前缀
-        password, 
-        userType,
+      // Create user data object to match the updated register method
+      const userData = {
+        username,
+        email: `${username}@agima.io`, // 使用用户名作为邮箱前缀
+        password,
+        role: userType,
         inviteCode // 传递邀请码
-      );
+      };
+      
+      const success = await register(userData);
       
       if (success) {
         // 导航到主页
@@ -104,14 +107,14 @@ const Login = () => {
         
         <TabsContent value="login">
           <LoginForm 
-            isLoading={isLoading || authLoading}
+            isLoading={isLoading || !!authLoading}
             onSubmit={handleLoginSubmit}
           />
         </TabsContent>
         
         <TabsContent value="register">
           <RegisterForm 
-            isLoading={isLoading || authLoading}
+            isLoading={isLoading || !!authLoading}
             onSubmit={handleRegisterSubmit}
           />
         </TabsContent>

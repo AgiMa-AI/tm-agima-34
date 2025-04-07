@@ -37,13 +37,16 @@ const Register = () => {
     }
     
     try {
-      const success = await register(
-        username, 
-        `${username}@agima.io`, 
-        password, 
-        userType,
+      // Create user data object to match the updated register method
+      const userData = {
+        username,
+        email: `${username}@agima.io`,
+        password,
+        role: userType,
         inviteCode
-      );
+      };
+      
+      const success = await register(userData);
       
       if (success) {
         navigate('/');
@@ -59,7 +62,7 @@ const Register = () => {
       description="注册以开始使用算力 AGI租赁服务"
     >
       <RegisterForm 
-        isLoading={isLoading}
+        isLoading={!!isLoading}
         onSubmit={handleRegisterSubmit}
       />
     </AuthLayout>

@@ -21,12 +21,12 @@ export interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (username: string, password: string) => Promise<boolean>;
-  register: (username: string, email: string, password: string, role: 'renter' | 'provider', inviteCode?: string) => Promise<boolean>;
+  register: (userData: Partial<UserWithPassword>) => Promise<boolean>;
   logout: () => void;
-  updateUser: (data: Partial<User>) => void;
-  getUserInviteTree: (userId: string) => string[];
-  transferFunds: (recipientId: string, amount: number) => Promise<{success: boolean; message: string;}>;
-  findUserByUsername: (username: string) => Promise<User | null>;
+  updateUser?: (data: Partial<User>) => void;
+  getUserInviteTree?: (userId: string) => string[];
+  transferFunds?: (recipientId: string, amount: number) => Promise<{success: boolean; message: string;}>;
+  findUserByUsername?: (username: string) => Promise<User | null>;
 }
 
 export interface UserWithPassword extends User {
