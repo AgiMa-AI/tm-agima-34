@@ -26,12 +26,6 @@ import MobileComputing from '@/pages/MobileComputing';
 import ServiceDistribution from '@/pages/ServiceDistribution';
 import ForgotPassword from '@/pages/auth/ForgotPassword';
 
-// Wallet pages
-import WalletRecharge from '@/pages/wallet/WalletRecharge';
-import WalletWithdraw from '@/pages/wallet/WalletWithdraw';
-import WalletDetails from '@/pages/wallet/WalletDetails';
-import WalletHistory from '@/pages/wallet/WalletHistory';
-
 // Admin pages
 import AdminLayout from '@/pages/admin/AdminLayout';
 import AdminDashboard from '@/pages/admin/AdminDashboard';
@@ -77,13 +71,7 @@ function App() {
             <Route path="/details/:id" element={<Details />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
-            
-            {/* 钱包相关路由 */}
             <Route path="/wallet" element={<Wallet />} />
-            <Route path="/wallet/recharge" element={<WalletRecharge />} />
-            <Route path="/wallet/withdraw" element={<WalletWithdraw />} />
-            <Route path="/wallet/details" element={<WalletDetails />} />
-            <Route path="/wallet/history" element={<WalletHistory />} />
             
             {/* 认证路由 */}
             <Route path="/login" element={<Login />} />
