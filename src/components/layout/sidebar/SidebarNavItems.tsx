@@ -2,7 +2,7 @@
 import React from 'react';
 import { 
   Home, Server, CreditCard, Clock, Settings, Database, 
-  Smartphone, BarChart, Bot, Cpu, Globe, Users,
+  Smartphone, BarChart, Bot, Cpu, Globe, 
   LineChart, PieChart, Share2, Wifi, Zap, Network,
   BrainCircuit, Layers, Code, BarChart4, Target
 } from 'lucide-react';
@@ -89,31 +89,6 @@ export const aiServiceItems = [
 ];
 
 export const userCenterItems = [
-  { 
-    href: "/users", 
-    icon: <Users className="h-4 w-4" />,
-    title: "用户管理"
-  },
-  { 
-    href: "/tasks", 
-    icon: <Clock className="h-4 w-4" />,
-    title: "任务调度"
-  },
-  { 
-    href: "/invitation", 
-    icon: <Share2 className="h-4 w-4" />,
-    title: "邀请管理"
-  },
-  { 
-    href: "/storage", 
-    icon: <Database className="h-4 w-4" />,
-    title: "存储管理"
-  },
-  { 
-    href: "/mobile-app", 
-    icon: <Zap className="h-4 w-4" />,
-    title: "移动应用"
-  },
   { 
     href: "/settings", 
     icon: <Settings className="h-4 w-4" />,

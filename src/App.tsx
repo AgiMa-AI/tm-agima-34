@@ -32,14 +32,6 @@ import WalletWithdraw from '@/pages/wallet/WalletWithdraw';
 import WalletDetails from '@/pages/wallet/WalletDetails';
 import WalletHistory from '@/pages/wallet/WalletHistory';
 
-// Admin pages
-import AdminLayout from '@/pages/admin/AdminLayout';
-import AdminDashboard from '@/pages/admin/AdminDashboard';
-import AdminUsers from '@/pages/admin/AdminUsers';
-import AdminInstances from '@/pages/admin/AdminInstances';
-import AdminSettings from '@/pages/admin/AdminSettings';
-import AdminApiConfig from '@/pages/admin/ApiConfig';
-
 // Consulting pages
 import ConsultingStrategy from '@/pages/ai-consulting/Strategy';
 import ConsultingImplementation from '@/pages/ai-consulting/Implementation';
@@ -132,24 +124,6 @@ function App() {
             <Route path="/ai-performance/benchmarks" element={<PerformanceBenchmarks />} />
             <Route path="/ai-performance/security" element={<PerformanceSecurity />} />
             <Route path="/ai-performance/contact" element={<PerformanceContact />} />
-            
-            {/* 管理员路由 - 使用嵌套路由和布局 */}
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<AdminDashboard />} />
-              <Route path="dashboard" element={<AdminDashboard />} />
-              <Route path="users" element={<AdminUsers />} />
-              <Route path="instances" element={<AdminInstances />} />
-              <Route path="settings" element={<AdminSettings />} />
-              <Route path="api-config" element={<AdminApiConfig />} />
-            </Route>
-            
-            {/* 旧管理路由的重定向 - 保持向后兼容 */}
-            <Route path="/users" element={<AdminUsers />} />
-            <Route path="/settings" element={<AdminSettings />} />
-            <Route path="/tasks" element={<AdminUsers />} />
-            <Route path="/invitation" element={<AdminUsers />} />
-            <Route path="/storage" element={<AdminUsers />} />
-            <Route path="/mobile-app" element={<AdminUsers />} />
             
             {/* 错误路由 */}
             <Route path="/404" element={<NotFound />} />

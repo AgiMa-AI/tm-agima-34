@@ -9,7 +9,6 @@ import {
   CreditCard,
   Home,
   Settings,
-  Users,
   Sliders,
   Layers,
   Brain,
@@ -20,7 +19,6 @@ import {
   Bot,
   LineChart,
   Globe,
-  Shield,
   Database,
 } from 'lucide-react';
 
@@ -30,7 +28,6 @@ interface SidebarNavigationProps {
 
 const SidebarNavigation = ({ collapsed }: SidebarNavigationProps) => {
   const { user } = useAuth();
-  const isAdmin = user?.role === 'admin';
 
   return (
     <div className="flex flex-col gap-2 px-2">
@@ -135,41 +132,6 @@ const SidebarNavigation = ({ collapsed }: SidebarNavigationProps) => {
           icon={LineChart}
         />
       </NavSection>
-
-      {isAdmin && (
-        <NavSection collapsed={collapsed} label="管理">
-          <NavItem
-            collapsed={collapsed}
-            href="/admin/dashboard"
-            label="管理仪表盘"
-            icon={BarChart2}
-          />
-          <NavItem
-            collapsed={collapsed}
-            href="/admin/users"
-            label="用户管理"
-            icon={Users}
-          />
-          <NavItem
-            collapsed={collapsed}
-            href="/admin/instances"
-            label="实例管理"
-            icon={Server}
-          />
-          <NavItem
-            collapsed={collapsed}
-            href="/admin/api-config"
-            label="API配置"
-            icon={Globe}
-          />
-          <NavItem
-            collapsed={collapsed}
-            href="/admin/settings"
-            label="系统设置"
-            icon={Settings}
-          />
-        </NavSection>
-      )}
     </div>
   );
 };
