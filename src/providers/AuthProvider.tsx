@@ -2,7 +2,7 @@
 import React, { useState, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/components/ui/use-toast';
-import { User } from '@/types/auth';
+import { User, UserWithPassword } from '@/types/auth';
 import AuthContext from '@/context/AuthContext';
 import { mockUsers } from '@/data/mockUsers';
 import { getUserInviteTree, createUser } from '@/utils/authUtils';
@@ -68,19 +68,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const register = async (
-    username: string, 
-    email: string, 
-    password: string, 
-    role: 'renter' | 'provider',
-    inviteCode?: string
-  ): Promise<boolean> => {
+  // Update the register function to match the interface signature
+  const register = async (userData: Partial<UserWithPassword>): Promise<boolean> => {
     setIsLoading(true);
     
     // Simulate delay for better UX
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     try {
+      // Extract needed properties from userData
+      const { username, email, password, role, inviteCode } = userData;
+      
+      if (!username || !email || !password || !role) {
+        toast({
+          variant: "destructive",
+          title: "注册失败",
+          description: "请填写所有必填字段",
+        });
+        return false;
+      }
+      
       const { newUser, success, message } = createUser(username, email, password, role, inviteCode);
       
       if (!success) {
@@ -228,4 +235,3 @@ export const withAuth = (Component: React.ComponentType) => {
     );
   };
 };
-
